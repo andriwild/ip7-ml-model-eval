@@ -24,7 +24,7 @@ def parse_args() -> argparse.Namespace:
             type=str,  
             default='models/yolov8n.pt', 
             help='Model name (e.g., /models/[yolov8n, yolov8s, yolov8m, yolov8l, yolov8x, ...])', # TODO: Update the list of models
-            choices=[*YOLO_MODELS, "all"]
+            #choices=[*YOLO_MODELS, "all"]
             )
 
     parser.add_argument(

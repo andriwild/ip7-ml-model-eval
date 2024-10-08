@@ -3,6 +3,7 @@
 
 import platform
 import time
+from pathlib import Path
 
 from arguments import parse_args
 from ultralytics import YOLO
@@ -89,7 +90,7 @@ def measure_inference_time(
 
 def run_hailo_inference(args) -> None:
     # Load input images
-    images = load_input_images(args.input)
+    images = load_input_images("coco/val2017/")
     
     # Validate images
     try:
@@ -103,7 +104,7 @@ def run_hailo_inference(args) -> None:
     output_path.mkdir(exist_ok=True)
 
     # Start the inference
-    infer(images, args.net, args.labels, args.batch_size, output_path)
+    infer(images, args.model_path, args.labels, args.batch_size, output_path)
 
 
 

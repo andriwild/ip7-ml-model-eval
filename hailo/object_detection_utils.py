@@ -81,7 +81,8 @@ class ObjectDetectionUtils:
         """
         label = f"{self.labels[cls]}: {score:.2f}%"
         ymin, xmin, ymax, xmax = box
-        font = ImageFont.truetype(self.label_font, size=15)
+        # font = ImageFont.truetype(self.label_font, size=15)
+        font = ImageFont.load_default()
         draw.rectangle([(xmin * scale_factor, ymin * scale_factor), (xmax * scale_factor, ymax * scale_factor)], outline=color, width=2)
         draw.text((xmin * scale_factor + 4, ymin * scale_factor + 4), label, fill=color, font=font)
 

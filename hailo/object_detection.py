@@ -78,7 +78,7 @@ def process_output(
         detections = utils.extract_detections(infer_results[0])
         utils.visualize(
             detections, processed_image, image_id, 
-            output_path, width, height
+           output_path.as_posix(), width, height
         )
         image_id += 1
     
