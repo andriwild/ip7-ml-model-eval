@@ -12,55 +12,11 @@ import queue
 import threading
 from PIL import Image
 from typing import List
-from object_detection_utils import ObjectDetectionUtils
+from hailo.object_detection_utils import ObjectDetectionUtils
 
 # Add the parent directory to the system path to access utils module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from utils import HailoAsyncInference, load_input_images, validate_images, divide_list_to_batches
-
-
-def parse_args() -> argparse.Namespace:
-    """
-    Initialize argument parser for the script.
-
-    Returns:
-        argparse.Namespace: Parsed arguments.
-    """
-    parser = argparse.ArgumentParser(description="Detection Example")
-    parser.add_argument(
-        "-n", "--net", 
-        help="Path for the network in HEF format.", 
-        default="yolov7.hef"
-    )
-    parser.add_argument(
-        "-i", "--input", 
-        default="zidane.jpg", 
-        help="Path to the input - either an image or a folder of images."
-    )
-    parser.add_argument(
-        "-b", "--batch_size", 
-        default=1, 
-        type=int, 
-        required=False, 
-        help="Number of images in one batch"
-    )
-    parser.add_argument(
-        "-l", "--labels", 
-        default="coco.txt", 
-        help="Path to a text file containing labels. If no labels file is provided, coco2017 will be used."
-    )
-    
-    args = parser.parse_args()
-
-    # Validate paths
-    if not os.path.exists(args.net):
-        raise FileNotFoundError(f"Network file not found: {args.net}")
-    if not os.path.exists(args.input):
-        raise FileNotFoundError(f"Input path not found: {args.input}")
-    if not os.path.exists(args.labels):
-        raise FileNotFoundError(f"Labels file not found: {args.labels}")
-
-    return args
+from hailo.utils import HailoAsyncInference, load_input_images, validate_images, divide_list_to_batches
 
 
 def enqueue_images(
@@ -177,32 +133,3 @@ def infer(
     logger.info(
         f'Inference was successful! Results have been saved in {output_path}'
     )
-
-
-def main() -> None:
-    """
-    Main function to run the script.
-    """
-    # Parse command line arguments
-    args = parse_args()
-    
-    # Load input images
-    images = load_input_images(args.input)
-    
-    # Validate images
-    try:
-        validate_images(images, args.batch_size)
-    except ValueError as e:
-        logger.error(e)
-        return
-    
-    # Create output directory if it doesn't exist
-    output_path = Path('output_images')
-    output_path.mkdir(exist_ok=True)
-
-    # Start the inference
-    infer(images, args.net, args.labels, args.batch_size, output_path)
-
-
-if __name__ == "__main__":
-    main()

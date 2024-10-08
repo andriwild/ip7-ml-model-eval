@@ -4,6 +4,7 @@ torch
 csv_logger
 torchvision
 torch
+pycocotools
 numpy
 loguru
 Pillow>=8.1.2
