@@ -1,0 +1,9 @@
+ultralytics
+termcolor
+torch
+csv_logger
+torchvision
+torch
+numpy
+loguru
+Pillow>=8.1.2
