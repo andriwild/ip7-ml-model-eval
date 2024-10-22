@@ -27,11 +27,6 @@ def TimeMeasure(name=None, active=True):
             result = func(*args, **kwargs)
             end = time.perf_counter()
             duration = end - start
-            print(*args)
-            if func_name == 'flower_inference':
-                print("flower_inference")
-                for r in result.tolist():
-                    print(len(r.pandas().xyxy[0]))
 
             with open(f'measurement/ml-pipline.csv', 'a', newline='') as csvfile:
                 writer = csv.writer(csvfile)

@@ -2,18 +2,20 @@ import os
 from time import sleep
 import csv
 
+from datetime import datetime
 import torch
+import platform
 from torch import nn
 from typing import cast
 from torch.utils.data import DataLoader, Subset
 from torchvision import datasets, transforms
 from cpu.inference import CpuInference
+from helpers.CsvWriter import CSVWriter
 from helpers.arguments import parse_args
 from helpers.yolomodel import YoloModel
 
 import matplotlib.pyplot as plt
 
-from helpers.time_diagram import time_plot
 from helpers.custom_dataset import FilesystemDataset, InMemoryDateset, flower_preprocessing, pollinator_preprocessing
 
     #transform = transforms.Compose([
@@ -55,8 +57,8 @@ def main() -> None:
 
 
     image_dataset = FilesystemDataset(
-        #root='/home/andri/repos/ip7-ml-model-eval/images/root',
-        root='/home/andri/minio/images/',
+        root='/home/andri/repos/ip7-ml-model-eval/images/root',
+        #root='/home/andri/minio/images/',
         transform=flower_preprocessing_fn
     )
 
@@ -66,29 +68,22 @@ def main() -> None:
 
     flower_dataloader = DataLoader(
         dataset=subset_dataset,
-        batch_size=args.batch_size,
+        batch_size=1,
         shuffle=False,
         collate_fn=lambda x: x
     )
+    header = [
+            "flower_inference", 
+            "pollinator_inference", 
+            "n_flowers", 
+            f"meta_data: threads={args.threads}, dataset_size={n_images}, pollinator_batch_size={args.batch_size}"
+            ]
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    writer = CSVWriter(f"./measurement/{platform.node()}_cpu_inference_{timestamp}.csv", header)
 
-    inference = CpuInference(flower_model, FLOWER_MODEL_DIM, pollinator_model, POLLINATOR_MODEL_DIM)
+    inference = CpuInference(flower_model, FLOWER_MODEL_DIM, pollinator_model, POLLINATOR_MODEL_DIM, writer)
 
-    predicted_flowers = inference.predict_flowers(flower_dataloader)
-
-    flower_dataset = InMemoryDateset(
-        images=predicted_flowers,
-        transform=pollinator_preprocessing_fn
-        )
-
-    pollinator_dataloader = DataLoader(
-         dataset=flower_dataset,
-         batch_size=args.batch_size,
-         shuffle=False,
-         collate_fn=lambda x: x
-     )
-
-    inference.predict_pollinators(pollinator_dataloader)
-
+    inference.run(flower_dataloader, args.batch_size)
 
 
 if __name__ == "__main__":

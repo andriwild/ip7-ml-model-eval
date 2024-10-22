@@ -8,3 +8,5 @@ hailort-4.18.0-cp311-cp311-linux_aarch64.whl
 hailort.*
 output_images/
 yolo*.pt
+measurement/
+images/

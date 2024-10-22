@@ -9,8 +9,12 @@ from dataclasses import dataclass
 from torch.utils.data import DataLoader
 import numpy as np
 from helpers.benchmark import TimeMeasure
+from helpers.CsvWriter import CSVWriter
 from typing import List
 from time import perf_counter
+POLLINATOR_MODEL_DIM  = (480, 480)
+
+from helpers.custom_dataset import InMemoryDateset, pollinator_preprocessing
 
 @dataclass
 class DetectionBox:
@@ -52,6 +56,7 @@ class CpuInference:
     flower_model_dim: tuple[int, int]
     pollinator_model: nn.Module
     pollinator_model_dim: tuple[int, int]
+    writer: CSVWriter
 
     @TimeMeasure(name="flower_inference")
     def _run_inference(self, images):
@@ -96,18 +101,41 @@ class CpuInference:
                 # image_original.show()
 
 
-    def predict_flowers(self, dataloader: DataLoader) -> list[Image.Image]:
-        all_cropped_images: list[Image.Image] = []
+    def run(self, dataloader: DataLoader, pollinator_batch_size: int):
+        csv_data = []
 
         with torch.no_grad():
             for image_specs in dataloader:
+
                 resized_images = [spec.resized for spec in image_specs]
+
+                start_time = perf_counter()
                 detections = self._run_inference(resized_images)
+                end_time = perf_counter()
+                csv_data.append(end_time - start_time)
 
                 cropped_images = self._postprocessing(detections, image_specs)
-                all_cropped_images.extend(cropped_images)
 
-        return all_cropped_images
+                flower_dataset = InMemoryDateset(
+                    images=cropped_images,
+                    transform=lambda img: pollinator_preprocessing(POLLINATOR_MODEL_DIM, img)
+                    )
+
+                pollinator_dataloader = DataLoader(
+                     dataset=flower_dataset,
+                     batch_size=pollinator_batch_size,
+                     shuffle=False,
+                     collate_fn=lambda x: x
+                 )
+
+                start_time = perf_counter()
+                self.predict_pollinators(pollinator_dataloader)
+                end_time = perf_counter()
+                csv_data.append(end_time - start_time)
+                csv_data.append(len(cropped_images))
+                self.writer.append_data(csv_data)
+                csv_data = []
+
 
 
     @TimeMeasure(name="pollinator_inference")
