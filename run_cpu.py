@@ -37,8 +37,8 @@ from helpers.custom_dataset import FilesystemDataset, InMemoryDateset, flower_pr
 
 
 
-FLOWER_MODEL_PATH     = 'models/flowers_ds_v5_640_yolov5n_box_hyps_v0.pt'
-POLLINATOR_MODEL_PATH = 'models/pollinators_ds_v6_480_yolov5s_hyps_v0.pt'
+FLOWER_MODEL_PATH     = 'mitwelten_models/flowers_ds_v5_640_yolov5n_box_hyps_v0.pt'
+POLLINATOR_MODEL_PATH = 'mitwelten_models/pollinators_ds_v6_480_yolov5s_hyps_v0.pt'
 MODEL_HUB             = 'ultralytics/yolov5'
 FLOWER_MODEL_DIM      = (640, 640)
 POLLINATOR_MODEL_DIM  = (480, 480)
