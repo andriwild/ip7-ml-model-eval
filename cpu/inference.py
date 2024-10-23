@@ -8,7 +8,6 @@ from torch.utils.data import DataLoader
 from dataclasses import dataclass
 from torch.utils.data import DataLoader
 import numpy as np
-from helpers.benchmark import TimeMeasure
 from helpers.CsvWriter import CSVWriter
 from typing import List
 from time import perf_counter
@@ -58,19 +57,57 @@ class CpuInference:
     pollinator_model_dim: tuple[int, int]
     writer: CSVWriter
 
-    @TimeMeasure(name="flower_inference")
-    def _run_inference(self, images):
-        return self.flower_model(images)
+    def run(self, dataloader: DataLoader, pollinator_batch_size: int):
+        csv_data = []
 
-    @TimeMeasure(name="flower_postprocessing")
+        with torch.no_grad():
+            n = len(dataloader)
+            it = iter(dataloader)
+            for _ in range(n):
+                pipline_start = perf_counter()
+
+                image_specs = next(it)
+
+                resized_images = [spec.resized for spec in image_specs]
+
+                start_time = perf_counter()
+                detections = self.flower_model(resized_images)
+                end_time = perf_counter()
+                csv_data.append(end_time - start_time)
+
+                cropped_images = self._postprocessing(detections, image_specs)
+
+                flower_dataset = InMemoryDateset(
+                    images=cropped_images,
+                    transform=lambda img: pollinator_preprocessing(POLLINATOR_MODEL_DIM, img)
+                    )
+
+                pollinator_dataloader = DataLoader(
+                     dataset=flower_dataset,
+                     batch_size=pollinator_batch_size,
+                     shuffle=False,
+                     collate_fn=lambda x: x
+                 )
+
+                start_time = perf_counter()
+                self.predict_pollinators(pollinator_dataloader)
+                end_time = perf_counter()
+                csv_data.append(end_time - start_time)
+                csv_data.append(len(cropped_images))
+
+                pipeline_end = perf_counter()
+                csv_data.append(pipeline_end- pipline_start)
+                self.writer.append_data(csv_data)
+                csv_data = []
+
     def _postprocessing(self, detections, image_specs) -> List[Image.Image]:
 
         cropped_images = []
 
         for (det, spec) in zip(detections.tolist(), image_specs):
 
-            image_original = spec.original
-            draw = ImageDraw.Draw(image_original)
+            # image_original = spec.original
+            # draw = ImageDraw.Draw(image_original)
 
             # calculate detection boxes in original image coordinates
             dataframes = det.pandas()
@@ -100,54 +137,12 @@ class CpuInference:
                 # draw.rectangle(box.to_tuple(), width=8, outline='blue')
                 # image_original.show()
 
-
-    def run(self, dataloader: DataLoader, pollinator_batch_size: int):
-        csv_data = []
-
-        with torch.no_grad():
-            for image_specs in dataloader:
-
-                resized_images = [spec.resized for spec in image_specs]
-
-                start_time = perf_counter()
-                detections = self._run_inference(resized_images)
-                end_time = perf_counter()
-                csv_data.append(end_time - start_time)
-
-                cropped_images = self._postprocessing(detections, image_specs)
-
-                flower_dataset = InMemoryDateset(
-                    images=cropped_images,
-                    transform=lambda img: pollinator_preprocessing(POLLINATOR_MODEL_DIM, img)
-                    )
-
-                pollinator_dataloader = DataLoader(
-                     dataset=flower_dataset,
-                     batch_size=pollinator_batch_size,
-                     shuffle=False,
-                     collate_fn=lambda x: x
-                 )
-
-                start_time = perf_counter()
-                self.predict_pollinators(pollinator_dataloader)
-                end_time = perf_counter()
-                csv_data.append(end_time - start_time)
-                csv_data.append(len(cropped_images))
-                self.writer.append_data(csv_data)
-                csv_data = []
-
-
-
-    @TimeMeasure(name="pollinator_inference")
-    def _pollinator_inference(self, images):
-        return self.pollinator_model(images)
-
     
     def predict_pollinators(self, dataloader: DataLoader):
         with torch.no_grad():
             for images_specs in dataloader:
                 resized_images = [spec.resized for spec in images_specs]
-                detections = self._pollinator_inference(resized_images)
+                detections = self.pollinator_model(resized_images)
                 #for (det, _) in zip(detections.tolist(), images_specs):
 
                     # calculate detection boxes in original image coordinates

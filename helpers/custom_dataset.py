@@ -74,6 +74,7 @@ class FilesystemDataset(Dataset):
     def __getitem__(self, idx) -> ImageSpecification:
         img_path = os.path.join(self.img_dir, self.img_files[idx])
         try:
+            print(img_path)
             image = Image.open(img_path).convert('RGB')
         except Exception as e:
             print(f"Error opening image {img_path}: {e}")

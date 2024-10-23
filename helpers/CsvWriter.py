@@ -1,10 +1,14 @@
 import csv
 import os
+from pathlib import Path
 
 class CSVWriter:
     def __init__(self, filename, header):
         self.filename = filename
         self.header = header
+        print(filename.rsplit("/", 1)[0])
+
+        Path(filename.rsplit("/", 1)[0]).mkdir(parents=True, exist_ok=True)
 
         # Check if file exists; if not, write header
         file_exists = os.path.isfile(self.filename)

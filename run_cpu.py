@@ -44,6 +44,18 @@ FLOWER_MODEL_DIM      = (640, 640)
 POLLINATOR_MODEL_DIM  = (480, 480)
 
 
+def init_csv_writer(args) -> CSVWriter:
+    header = [
+            "flower_inference", 
+            "pollinator_inference", 
+            "n_flowers", 
+            "pipeline", 
+            f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}, pollinator_batch_size={args.batch_size}"
+            ]
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    return CSVWriter(f"./measurement_pipeline/{platform.node()}_cpu_inference_{timestamp}.csv", header)
+
+
 def main() -> None:
     args = parse_args()
     n_images = args.dataset_size
@@ -52,14 +64,11 @@ def main() -> None:
     flower_model     = cast(nn.Module, torch.hub.load(MODEL_HUB, 'custom', path=FLOWER_MODEL_PATH))
     pollinator_model = cast(nn.Module, torch.hub.load(MODEL_HUB, 'custom', path=POLLINATOR_MODEL_PATH))
 
-    flower_preprocessing_fn = lambda img: flower_preprocessing(FLOWER_MODEL_DIM, img)
-    pollinator_preprocessing_fn = lambda img: pollinator_preprocessing(POLLINATOR_MODEL_DIM, img)
-
 
     image_dataset = FilesystemDataset(
         root='/home/andri/repos/ip7-ml-model-eval/images/root',
         #root='/home/andri/minio/images/',
-        transform=flower_preprocessing_fn
+        transform=lambda img: flower_preprocessing(FLOWER_MODEL_DIM, img)
     )
 
     # truncate dataset to the number of images specified
@@ -72,15 +81,8 @@ def main() -> None:
         shuffle=False,
         collate_fn=lambda x: x
     )
-    header = [
-            "flower_inference", 
-            "pollinator_inference", 
-            "n_flowers", 
-            f"meta_data: threads={args.threads}, dataset_size={n_images}, pollinator_batch_size={args.batch_size}"
-            ]
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    writer = CSVWriter(f"./measurement/{platform.node()}_cpu_inference_{timestamp}.csv", header)
 
+    writer = init_csv_writer(args)
     inference = CpuInference(flower_model, FLOWER_MODEL_DIM, pollinator_model, POLLINATOR_MODEL_DIM, writer)
 
     inference.run(flower_dataloader, args.batch_size)

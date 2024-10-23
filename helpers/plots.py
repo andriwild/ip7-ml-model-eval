@@ -1,10 +1,10 @@
 import csv
 import math
+import argparse
 import glob
 import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
-from adjustText import adjust_text
 #matplotlib.use('svg')
 
 
@@ -108,45 +108,51 @@ def plot_pollinator_inference_scatter(csv_filenames, titles=None):
 
 
 
-def plot_multiple_csv_scatter(csv_filenames):
+def plot_multiple_csv_scatter(path, csv_filenames):
     plt.figure(figsize=(10, 6))
 
-    data_list = []
-    labels = []
-
-    # Read and store data and labels
     for csv_filename in csv_filenames:
-        data = pd.read_csv("./measurement/" +csv_filename)
-        x = data['n_flowers']
-        y = data['pollinator_inference']
+        # Read the CSV data
+        data = pd.read_csv(path + "/" + csv_filename)
+
+        # Assuming the CSV files have 'n_flowers' and 'pollinator_inference' columns
+        x = data['pipeline']
+        y = data['n_flowers']
+
+        # Sort the data by 'n_flowers' for line plotting
         sorted_indices = x.argsort()
         x = x.iloc[sorted_indices]
         y = y.iloc[sorted_indices]
-        data_list.append((x, y))
-        labels.append(data.columns[-1].split(":")[-1].strip())
 
-    # Sort labels and data if a sorting function is provided
-
-    # Plot each dataset
-    for (x, y), label in zip(data_list, labels):
+        # Plot the data
         plt.scatter(x, y)
-        plt.plot(x, y)
+        plt.plot(x, y, label=data.columns[-1].split(":")[-1].strip())
 
-        # Label the line directly at the last data point
-        label_x = x.iloc[-1]
-        label_y = y.iloc[-1]
-        plt.text(label_x, label_y, label, fontsize=9, ha='left', va='center')
-
-    plt.xlabel('Number of Flowers (n_flowers)')
-    plt.ylabel('Pollinator Inference Time (seconds)')
+    plt.ylabel('Number of Flowers (n_flowers)')
+    plt.xlabel('Pollinator Inference Time (seconds)')
     plt.title('Pollinator Inference Time vs. Number of Flowers')
     plt.legend()
     plt.show()
 
 
 if __name__ == "__main__":
-    csv_files = glob.glob("*.csv", root_dir="./measurement")
+
+    parser = argparse.ArgumentParser(description='ML Model Inference Time Measurement')
+
+    # Arguments
+    parser.add_argument(
+            '-p', '--path',  
+            type=str,  
+            default='./measurement',
+            help='Path to the CSV files'
+            )
+    args = parser.parse_args()
+    print(args)
+    csv_files = glob.glob("*.csv", root_dir=args.path)
+
+    print(f"{len(csv_files)} files found")
     #plot_pollinator_inference_scatter("cpu_inference_20241022_112815.csv")
     #plot_pollinator_inference_boxplot("cpu_inference_20241022_112815.csv")
     #plot_pollinator_inference_scatter(csv_files)
-    plot_multiple_csv_scatter(csv_files)
+    plot_multiple_csv_scatter(args.path, csv_files)
+
