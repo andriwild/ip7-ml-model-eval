@@ -66,6 +66,12 @@ def parse_args() -> argparse.Namespace:
         help="Path to a text file containing labels. If no labels file is provided, coco2017 will be used."
     )
 
+    parser.add_argument(
+        "-f", "--data_folder", 
+        default="test_run",
+        help="Folder name to store the measurement data"
+    )
+
     args = parser.parse_args()
 
     # Validate paths

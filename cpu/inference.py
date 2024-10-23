@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from dataclasses import dataclass
 from torch.utils.data import DataLoader
 import numpy as np
-from helpers.CsvWriter import CSVWriter
+from helpers.csv_writer import CSVWriter
 from typing import List
 from time import perf_counter
 POLLINATOR_MODEL_DIM  = (480, 480)

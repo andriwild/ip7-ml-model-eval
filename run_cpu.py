@@ -5,7 +5,7 @@ from torch import nn
 from typing import cast
 from torch.utils.data import DataLoader, Subset
 from cpu.inference import CpuInference
-from helpers.CsvWriter import CSVWriter
+from helpers.csv_writer import CSVWriter
 from helpers.arguments import parse_args
 
 from helpers.custom_dataset import FilesystemDataset, flower_preprocessing
@@ -34,7 +34,7 @@ POLLINATOR_MODEL_PATH = 'mitwelten_models/pollinators_ds_v6_480_yolov5s_hyps_v0.
 MODEL_HUB             = 'ultralytics/yolov5'
 FLOWER_MODEL_DIM      = (640, 640)
 POLLINATOR_MODEL_DIM  = (480, 480)
-MEASUREMENT_FILE = "measurements_test"
+MEASUREMENT_FOLDER = "data"
 
 
 def init_csv_writer(args) -> CSVWriter:
@@ -46,7 +46,7 @@ def init_csv_writer(args) -> CSVWriter:
             f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}, pollinator_batch_size={args.batch_size}"
             ]
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    return CSVWriter(f"./{MEASUREMENT_FILE}/{platform.node()}_cpu_inference_{timestamp}.csv", header)
+    return CSVWriter(f"./{MEASUREMENT_FOLDER}/{args.data_folder}/{platform.node()}_cpu_inference_{timestamp}.csv", header)
 
 
 def main() -> None:
