@@ -1,12 +1,14 @@
 import csv
 import os
 from pathlib import Path
+from typing import List
 
 class CSVWriter:
-    def __init__(self, filename, header):
+    def __init__(self, filename, header, cache_mode=True):
         self.filename = filename
         self.header = header
-        print(filename.rsplit("/", 1)[0])
+        self.cache_mode = cache_mode
+        self.cache_data = []
 
         Path(filename.rsplit("/", 1)[0]).mkdir(parents=True, exist_ok=True)
 
@@ -17,14 +19,17 @@ class CSVWriter:
                 writer = csv.writer(csvfile)
                 writer.writerow(self.header)
 
-    def append_data(self, data):
+    def append_data(self, data: List):
+        if self.cache_mode:
+            self.cache_data.append(data)
+        else:
+            with open(self.filename, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(data)
+
+    def flush(self):
         with open(self.filename, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(data)
+            for data in self.cache_data:
+                writer.writerow(data)
 
-if __name__ == "__main__":
-    header = ['Function', 'Execution Time (seconds)']
-    csv_writer = CSVWriter('measurement.csv', header)
-
-    csv_writer.append_data(['function1', 0.123])
-    csv_writer.append_data(['function2', 0.456])
