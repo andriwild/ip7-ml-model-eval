@@ -3,9 +3,9 @@ from pathlib import Path
 
 from termcolor import cprint
 
-from arguments import parse_args
-from hailo.object_detection import infer
-from hailo.utils import load_input_images, validate_images
+from utility.arguments import parse_args
+from inference.hailo.object_detection import infer
+from inference.hailo.utils import load_input_images, validate_images
 
 
 def main() -> None:

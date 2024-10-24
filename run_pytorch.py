@@ -4,7 +4,7 @@ import platform
 from torch import nn
 from typing import cast
 from torch.utils.data import DataLoader, Subset
-from cpu.inference import CpuInference
+from inference.pytorch_model.pytorch_inference import CpuInference
 from utility.csv_writer import CSVWriter
 from utility.arguments import parse_args
 
