@@ -13,7 +13,7 @@ import threading
 from PIL import Image
 from typing import List
 
-from benchmark import Measure
+from utility.benchmark import TimeMeasure
 from hailo.object_detection_utils import ObjectDetectionUtils
 
 # Add the parent directory to the system path to access utils module
@@ -87,7 +87,7 @@ def process_output(
     output_queue.task_done()  # Indicate that processing is complete
 
 
-@Measure
+@TimeMeasure
 def infer(
     images: List[Image.Image], 
     net_path: str, 

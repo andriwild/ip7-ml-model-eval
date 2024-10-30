@@ -15,13 +15,14 @@ class YoloModel:
         iou_thres=0.45,
         classes=["class1", "class2", "class3"],
         margin=10,
+        n_threads=cpu_count(),
     ):
 
         self.weights = weights
         self.image_size = image_size
         self.conf_thres = conf_thres
         self.iou_thres = iou_thres
-        self.interpreter = tf.lite.Interpreter(self.weights, num_threads=cpu_count())
+        self.interpreter = tf.lite.Interpreter(self.weights, num_threads=n_threads)
         self.interpreter.allocate_tensors()
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
