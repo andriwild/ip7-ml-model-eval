@@ -1,5 +1,5 @@
 .idea
-models
+models/yolo/
 coco
 reports
 .venv
@@ -10,5 +10,4 @@ hailort.*
 output_images/
 yolo*.pt
 measurement*/
-images/
 data/

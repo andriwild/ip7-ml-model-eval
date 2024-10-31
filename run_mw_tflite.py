@@ -27,7 +27,7 @@ def init_csv_writer(args) -> CSVWriter:
             "pollinator_inference",
             "n_flowers",
             "pipeline",
-            f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}, pollinator_batch_size={args.batch_size}"
+            f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}"
             ]
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     return CSVWriter(f"./{MEASUREMENT_FOLDER}/{args.data_folder}/{platform.node()}_cpu_inference_{timestamp}.csv", header)

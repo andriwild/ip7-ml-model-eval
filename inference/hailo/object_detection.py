@@ -14,7 +14,7 @@ from PIL import Image
 from typing import List
 
 from utility.benchmark import TimeMeasure
-from hailo.object_detection_utils import ObjectDetectionUtils
+from inference.hailo.object_detection_utils import ObjectDetectionUtils
 
 # Add the parent directory to the system path to access utils module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -87,7 +87,7 @@ def process_output(
     output_queue.task_done()  # Indicate that processing is complete
 
 
-@TimeMeasure
+@TimeMeasure()
 def infer(
     images: List[Image.Image], 
     net_path: str, 
