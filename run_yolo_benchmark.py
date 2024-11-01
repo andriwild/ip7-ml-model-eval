@@ -21,9 +21,11 @@ def main(base_model, target, n_images, image_folder):
     target_model.predict(images[0], device="cpu")
 
     # Start the benchmark
-    start_time = time.process_time()
+    #start_time = time.process_time()
+    start_time = time.time()
     model.predict(images, device="cpu")
-    end_time = time.process_time()
+    #end_time = time.process_time()
+    end_time = time.time()
 
     cprint(f"Total time: {end_time - start_time}", "green")
     cprint(f"Number of processed images: {n_images}", "green")
