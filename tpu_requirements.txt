@@ -1,0 +1,5 @@
+ultralytics
+pyyaml
+termcolor
+numpy==1.24.2
+tflite-runtime
