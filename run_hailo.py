@@ -34,6 +34,8 @@ def main() -> None:
     infer(images, args.model_path, args.labels, args.batch_size, output_path, postprecessing=False)
     end = time.process_time()
     cprint(f"Total time: {end - start}", "green")
+    cprint(f"Number of processed images: {n_images}", "green")
+    cprint(f"Average time per image: {(end - start) / n_images}", "green")
 
 
 if __name__ == "__main__":
