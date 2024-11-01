@@ -135,7 +135,3 @@ def infer(
     output_queue.put(None)  # Signal process thread to exit
     if postprecessing:
         process_thread.join()
-
-    logger.info(
-        f'Inference was successful! Results have been saved in {output_path}'
-    )

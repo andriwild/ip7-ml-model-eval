@@ -1,15 +1,17 @@
 import time
+import platform
 import argparse
 from ultralytics import YOLO
 import os
+import yaml
 from utility.loader import load_all_images
+from termcolor import cprint
 
 
-def main(model_name, n_images):
+def main(model_name, n_images, image_folder):
     # Load the model
     model = YOLO(f"edgetpu/{model_name}_full_integer_quant_edgetpu.tflite")
     
-    image_folder = "/coco/val2017"
     images = load_all_images(image_folder)
     images = images[:n_images]
 
@@ -24,13 +26,11 @@ def main(model_name, n_images):
         model.predict(img, device="tpu:0")
     
     end_time = time.process_time()
-    
-    # Calculate performance metrics
-    total_time = end_time - start_time
-    avg_time_per_image = total_time / n_images 
-    
-    print(f"Total inference time for {n_images} images: {total_time:.2f} seconds")
-    print(f"Average inference time per image: {avg_time_per_image:.4f} seconds per image")
+
+    cprint(f"Total time: {end_time - start_time}", "green")
+    cprint(f"Number of processed images: {n_images}", "green")
+    cprint(f"Average time per image: {(end_time - start_time) / n_images}", "green")
+    cprint(f"Inference runs on: {platform.node()}", "green")
 
 
 if __name__ == "__main__":
@@ -39,7 +39,20 @@ if __name__ == "__main__":
     parser.add_argument( '-n', '--n_images', type=int, default='1000')
     args = parser.parse_args()
 
+    model = args.model
+    n_images = args.n_images
+
     if not os.path.exists(args.model):
         raise FileNotFoundError(f"Model file not found: {args.model}")
 
-    main(args.model, args.n_images)
+    with open("config.yaml", "r") as stream:
+        try:
+            cfg = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            raise FileNotFoundError(f"Config file not found")
+    
+    
+    image_folder = cfg.get("image_folder")
+
+    cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
+    main(model, n_images, image_folder)
