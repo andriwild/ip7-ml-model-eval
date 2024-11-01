@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-source .tpu/bin/activate
+source .venv/bin/activate
 
 DEFAULT_N_IMAGES=10
 
