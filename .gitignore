@@ -1,6 +1,6 @@
 .idea
 models/yolo/
-coco
+yolo*
 reports
 .venv
 __pycache__/
@@ -11,3 +11,5 @@ output_images/
 yolo*.pt
 measurement*/
 data/
+coco/val2017/
+coco/annotations/
