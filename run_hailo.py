@@ -30,6 +30,9 @@ def main() -> None:
     output_path.mkdir(exist_ok=True)
 
     
+    # warm up
+    infer(images[:2], args.model_path, args.labels, args.batch_size, output_path, postprecessing=False)
+
     start = time.process_time()
     infer(images, args.model_path, args.labels, args.batch_size, output_path, postprecessing=False)
     end = time.process_time()
