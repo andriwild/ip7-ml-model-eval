@@ -42,7 +42,7 @@ if __name__ == "__main__":
     model = args.model
     n_images = args.n_images
 
-    model_path = f"edgetpu/{model}_full_integer_quant_edgetpu.tflite"
+    model_path = f"models/edgetpu/{model}_full_integer_quant_edgetpu.tflite"
 
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found: {args.model}")
