@@ -1,4 +1,5 @@
 import platform
+import time
 from pathlib import Path
 
 from termcolor import cprint
@@ -28,11 +29,11 @@ def main() -> None:
     output_path = Path('output_images')
     output_path.mkdir(exist_ok=True)
 
-    # Start the inference
-    print("run inference: ", args.model_path, args.labels, args.batch_size, output_path)
-    infer(images, args.model_path, args.labels, args.batch_size, output_path)
-    print(duration / n_images)
-    print(platform.node(), args.device, "yolo", duration / n_images, n_images, "coco")
+    
+    start = time.process_time()
+    infer(images, args.model_path, args.labels, args.batch_size, output_path, postprecessing=False)
+    end = time.process_time()
+    cprint(f"Total time: {end - start}", "green")
 
 
 if __name__ == "__main__":

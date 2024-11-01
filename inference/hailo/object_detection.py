@@ -92,7 +92,8 @@ def infer(
     net_path: str, 
     labels_path: str, 
     batch_size: int, 
-    output_path: Path
+    output_path: Path,
+    postprecessing: bool = True
 ):
     """
     Initialize queues, HailoAsyncInference instance, and run the inference.
@@ -105,12 +106,10 @@ def infer(
         output_path (Path): Path to save the output images.
     """
     utils = ObjectDetectionUtils(labels_path)
-    print("utils created")
     
     input_queue = queue.Queue()
     output_queue = queue.Queue()
 
-    print("queues created")
     
     hailo_inference = HailoAsyncInference(
         net_path, input_queue, output_queue, batch_size
@@ -127,15 +126,15 @@ def infer(
     )
     
     enqueue_thread.start()
-    process_thread.start()
+    if postprecessing:
+        process_thread.start()
     
-    print("start inference")
     hailo_inference.run()
-    print("end inference")
 
     enqueue_thread.join()
     output_queue.put(None)  # Signal process thread to exit
-    process_thread.join()
+    if postprecessing:
+        process_thread.join()
 
     logger.info(
         f'Inference was successful! Results have been saved in {output_path}'
