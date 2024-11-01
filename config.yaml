@@ -1,6 +1,6 @@
 measurement_folder:
   'data/tflite'
-coco_image_folder:
-  'coco/val2017'
+image_folder:
+  'coco/images/val2017/'
 coco_classes:
   'coco/coco.txt'
