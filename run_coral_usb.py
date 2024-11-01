@@ -36,7 +36,7 @@ def main(model_name, n_images, image_folder):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Performance Test: Coral USB Accelerator')
     parser.add_argument( '-m', '--model', type=str, default='yolov8s')
-    parser.add_argument( '-n', '--n_images', type=int, default='1000')
+    parser.add_argument( '-n', '--n_images', type=int, default='10')
     args = parser.parse_args()
 
     model = args.model

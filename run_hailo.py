@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Performance Test on Hailo8l')
     parser.add_argument( '-m', '--model', type=str, default='models/hailo/yolov8n.hef')
     parser.add_argument( '-b', '--batch_size', type=int, default='10')
-    parser.add_argument( '-n', '--n_images', type=int, default='100')
+    parser.add_argument( '-n', '--n_images', type=int, default='10')
     parser.add_argument( '-l', '--labels', type=str, default='coco/coco.txt')
     args = parser.parse_args()
 
