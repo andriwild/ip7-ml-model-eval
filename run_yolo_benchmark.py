@@ -46,7 +46,7 @@ if __name__ == "__main__":
     target = args.target
 
     if not os.path.exists(args.base_model):
-        raise FileNotFoundError(f"Model file not found: {args.model}")
+        raise FileNotFoundError(f"Model file not found: {model}")
 
     with open("config.yaml", "r") as stream:
         try:
