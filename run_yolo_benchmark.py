@@ -29,10 +29,10 @@ def main(base_model, target, n_images, image_folder):
     target_model.predict(images[0], device="cpu")
 
     # Start the benchmark
-    start_time = time.process_time()
+    start_time = time.time()
     for image in images:
         target_model.predict(image, device="cpu")
-    end_time = time.process_time()
+    end_time = time.time()
 
     avg_inference_time = (end_time - start_time) / n_images
     cprint(f"Total time: {end_time - start_time}", "green")
