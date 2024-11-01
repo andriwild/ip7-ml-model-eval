@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 from dataclasses import dataclass
 from typing import Callable
 from pathlib import Path
-from helpers.benchmark import TimeMeasure
+from utility.benchmark import TimeMeasure
 
 
 @dataclass

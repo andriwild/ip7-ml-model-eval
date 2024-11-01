@@ -8,9 +8,7 @@ from inference.hailo.object_detection import infer
 from inference.hailo.utils import load_input_images, validate_images
 
 
-def main() -> None:
-    args = parse_args()
-    n_images = args.dataset_size
+def main(n_images) -> None:
 
     # Load input images
     images = load_input_images("../coco/val2017/")
@@ -34,4 +32,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    n_images = args.dataset_size
+    main(n_images)
