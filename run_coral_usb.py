@@ -8,9 +8,9 @@ from utility.loader import load_all_images
 from termcolor import cprint
 
 
-def main(model_name, n_images, image_folder):
+def main(model_path, n_images, image_folder):
     # Load the model
-    model = YOLO(f"edgetpu/{model_name}_full_integer_quant_edgetpu.tflite")
+    model = YOLO(model_path)
     
     images = load_all_images(image_folder)
     images = images[:n_images]
@@ -42,7 +42,9 @@ if __name__ == "__main__":
     model = args.model
     n_images = args.n_images
 
-    if not os.path.exists(args.model):
+    model_path = f"edgetpu/{model}_full_integer_quant_edgetpu.tflite"
+
+    if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found: {args.model}")
 
     with open("config.yaml", "r") as stream:
@@ -55,4 +57,4 @@ if __name__ == "__main__":
     image_folder = cfg.get("image_folder")
 
     cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
-    main(model, n_images, image_folder)
+    main(model_path, n_images, image_folder)
