@@ -23,8 +23,7 @@ def main(base_model, target, n_images, image_folder):
     # Start the benchmark
     #start_time = time.process_time()
     start_time = time.time()
-    for img in images:
-        target_model.predict(img, device="cpu")
+    target_model.predict(images, device="cpu")
     #end_time = time.process_time()
     end_time = time.time()
 
