@@ -8,10 +8,13 @@ from inference.hailo.object_detection import infer
 from inference.hailo.utils import load_input_images, validate_images
 
 
-def main(n_images) -> None:
+def main() -> None:
+
+    args = parse_args()
+    n_images = args.dataset_size
 
     # Load input images
-    images = load_input_images("coco/val2017/")
+    images = load_input_images("coco/images/val2017/")
     images = images[:n_images]
 
     # Validate images
@@ -26,12 +29,11 @@ def main(n_images) -> None:
     output_path.mkdir(exist_ok=True)
 
     # Start the inference
-    duration = infer(images, args.model_path, args.labels, args.batch_size, output_path)
+    print("run inference: ", args.model_path, args.labels, args.batch_size, output_path)
+    infer(images, args.model_path, args.labels, args.batch_size, output_path)
     print(duration / n_images)
     print(platform.node(), args.device, "yolo", duration / n_images, n_images, "coco")
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    n_images = args.dataset_size
-    main(n_images)
+    main()

@@ -87,7 +87,6 @@ def process_output(
     output_queue.task_done()  # Indicate that processing is complete
 
 
-@TimeMeasure()
 def infer(
     images: List[Image.Image], 
     net_path: str, 
@@ -106,9 +105,12 @@ def infer(
         output_path (Path): Path to save the output images.
     """
     utils = ObjectDetectionUtils(labels_path)
+    print("utils created")
     
     input_queue = queue.Queue()
     output_queue = queue.Queue()
+
+    print("queues created")
     
     hailo_inference = HailoAsyncInference(
         net_path, input_queue, output_queue, batch_size
@@ -127,7 +129,9 @@ def infer(
     enqueue_thread.start()
     process_thread.start()
     
+    print("start inference")
     hailo_inference.run()
+    print("end inference")
 
     enqueue_thread.join()
     output_queue.put(None)  # Signal process thread to exit
