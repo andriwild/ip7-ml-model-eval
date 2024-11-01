@@ -45,9 +45,6 @@ if __name__ == "__main__":
     n_images = args.n_images
     target = args.target
 
-    if not os.path.exists(args.base_model):
-        raise FileNotFoundError(f"Model file not found: {model}")
-
     with open("config.yaml", "r") as stream:
         try:
             cfg = yaml.safe_load(stream)
