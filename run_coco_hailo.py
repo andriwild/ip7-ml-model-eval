@@ -11,7 +11,7 @@ from inference.hailo.utils import load_input_images, validate_images
 def main(n_images) -> None:
 
     # Load input images
-    images = load_input_images("../coco/val2017/")
+    images = load_input_images("coco/val2017/")
     images = images[:n_images]
 
     # Validate images
