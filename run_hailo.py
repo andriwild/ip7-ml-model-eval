@@ -51,7 +51,7 @@ def main(model, batch_size, n_images, labels, image_folder) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Performance Test on Hailo8l')
-    parser.add_argument( '-m', '--model', type=str, default='models/hailo/yolov8n.hef')
+    parser.add_argument( '-m', '--model', type=str, default='yolov8n')
     parser.add_argument( '-b', '--batch_size', type=int, default='10')
     parser.add_argument( '-n', '--n_images', type=int, default='10')
     parser.add_argument( '-l', '--labels', type=str, default='coco/coco.txt')
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.model):
         raise FileNotFoundError(f"Model file not found: {args.model}")
     
-    model = args.model
+    model = f"models/hailo/{args.model}.hef"
     batch_size = args.batch_size
     n_images = args.n_images
     labels = args.labels
@@ -79,4 +79,4 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {model}, batch_size={batch_size}, {n_images} images, labels:{labels}", "green")
     avg_inference_time = main(model, batch_size, n_images, labels, image_folder)
 
-    write_results([model, batch_size, avg_inference_time], output_file)
+    write_results([model, "hailo", avg_inference_time, batch_size ], output_file)

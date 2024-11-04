@@ -69,4 +69,4 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
 
-    write_results([model, avg_inference_time], output_file)
+    write_results([model, "coral usb", avg_inference_time], output_file)
