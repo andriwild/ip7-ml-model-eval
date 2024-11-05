@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
 source .tpu/bin/activate
 
 DEFAULT_N_IMAGES=10

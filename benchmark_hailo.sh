@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
 source .hailo/bin/activate
 
 DEFAULT_N_IMAGES=10
