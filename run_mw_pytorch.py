@@ -30,9 +30,9 @@ from utility.custom_dataset import FilesystemDataset, flower_preprocessing
 
 
 #FLOWER_MODEL_PATH     = 'mitwelten_models/flowers_ds_v5_640_yolov5n_v0_cnv-fp16.tflite'
-FLOWER_MODEL_PATH     = 'mitwelten_models/flowers_ds_v5_640_yolov5n_box_hyps_v0.pt'
+FLOWER_MODEL_PATH     = 'models/mitwelten_models/flowers_ds_v5_640_yolov5n_box_hyps_v0.pt'
 #POLLINATOR_MODEL_PATH = 'mitwelten_models/pollinators_ds_v6_480_yolov5s_bs32_300ep_multiscale_v0-fp16.tflite'
-POLLINATOR_MODEL_PATH = 'mitwelten_models/pollinators_ds_v6_480_yolov5s_hyps_v0.pt'
+POLLINATOR_MODEL_PATH = 'models/mitwelten_models/pollinators_ds_v6_480_yolov5s_hyps_v0.pt'
 MODEL_HUB             = 'ultralytics/yolov5'
 FLOWER_MODEL_DIM      = (640, 640)
 POLLINATOR_MODEL_DIM  = (480, 480)
