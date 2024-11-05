@@ -7,6 +7,7 @@ import yaml
 from utility.loader import load_all_images
 from termcolor import cprint
 import csv
+import gc
 
 
 def write_results(results, output_file):
@@ -20,8 +21,7 @@ def main(model_path, n_images, image_folder):
     # Load the model
     model = YOLO(model_path)
     
-    images = load_all_images(image_folder)
-    images = images[:n_images]
+    images = load_all_images(image_folder, n_images)
 
     # Warm up the model
     model.predict(images[0], device="tpu:0")
@@ -70,3 +70,4 @@ if __name__ == "__main__":
     avg_inference_time = main(model_path, n_images, image_folder)
 
     write_results([model, "coral usb", avg_inference_time], output_file)
+    gc.collect()

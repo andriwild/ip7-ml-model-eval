@@ -8,6 +8,7 @@ import yaml
 from inference.hailo.object_detection import infer
 from inference.hailo.utils import load_input_images, validate_images
 import csv
+import gc
 
 
 def write_results(results, output_file):
@@ -80,3 +81,4 @@ if __name__ == "__main__":
     avg_inference_time = main(model, batch_size, n_images, labels, image_folder)
 
     write_results([model, "hailo", avg_inference_time, batch_size ], output_file)
+    gc.collect()

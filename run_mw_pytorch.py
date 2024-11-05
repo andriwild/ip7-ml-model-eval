@@ -61,7 +61,7 @@ def main() -> None:
 
 
     image_dataset = FilesystemDataset(
-        root='images/root',
+        root='images/root/',
         #root='/home/andri/minio/images/',
         transform=lambda img: flower_preprocessing(FLOWER_MODEL_DIM, img)
     )
