@@ -61,7 +61,7 @@ def main() -> None:
 
 
     image_dataset = FilesystemDataset(
-        root='/home/andri/repos/ip7-ml-model-eval/images/root',
+        root='images/root',
         #root='/home/andri/minio/images/',
         transform=lambda img: flower_preprocessing(FLOWER_MODEL_DIM, img)
     )
