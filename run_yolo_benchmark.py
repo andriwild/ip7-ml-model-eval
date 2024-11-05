@@ -66,7 +66,7 @@ if __name__ == "__main__":
     image_folder = cfg.get("image_folder")
     output_file = cfg.get("output_file")
 
-    cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
+    cprint(f"Run yolo benchmark: {model}, {n_images} images", "green")
 
     avg_inference_time = main(model, target, n_images, image_folder)
 
