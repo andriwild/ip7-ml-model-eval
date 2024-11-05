@@ -7,6 +7,7 @@ import os
 import yaml
 from termcolor import cprint
 import csv
+import gc
 
 
 def write_results(results, output_file):
@@ -22,8 +23,9 @@ def main(base_model, target, n_images, image_folder):
 
     target_model = YOLO(model_path)
 
-    images = load_all_images(image_folder)
-    images = images[:n_images]
+    del model
+
+    images = load_all_images(image_folder, n_images)
     
     # Warm up
     target_model.predict(images[0], device="cpu")
@@ -69,4 +71,5 @@ if __name__ == "__main__":
     avg_inference_time = main(model, target, n_images, image_folder)
 
     write_results([model, target, avg_inference_time], output_file)
+    gc.collect()
 
