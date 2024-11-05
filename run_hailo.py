@@ -62,7 +62,6 @@ if __name__ == "__main__":
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found: {args.model}")
     
-    model = model_path
     batch_size = args.batch_size
     n_images = args.n_images
     labels = args.labels
@@ -78,8 +77,8 @@ if __name__ == "__main__":
     image_folder = cfg.get("image_folder")
     output_file = cfg.get("output_file")
 
-    cprint(f"Run hailo benchmark: {model}, batch_size={batch_size}, {n_images} images, labels:{labels}", "green")
-    avg_inference_time = main(model, batch_size, n_images, labels, image_folder)
+    cprint(f"Run hailo benchmark: {args.model}, batch_size={batch_size}, {n_images} images, labels:{labels}", "green")
+    avg_inference_time = main(model_path, batch_size, n_images, labels, image_folder)
 
-    write_results([model, "hailo", avg_inference_time, batch_size ], output_file)
+    write_results([args.model, "hailo", avg_inference_time, batch_size ], output_file)
     gc.collect()
