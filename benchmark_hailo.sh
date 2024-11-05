@@ -12,8 +12,8 @@ MODELS=(
     yolov10n
     yolov10s
     yolov10x
-    yolov5m
-    yolov5s
+    yolov5mu
+    yolov5su
     yolov8l
     yolov8m
     yolov8n
