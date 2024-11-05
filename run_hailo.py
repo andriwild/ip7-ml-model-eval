@@ -57,11 +57,12 @@ if __name__ == "__main__":
     parser.add_argument( '-n', '--n_images', type=int, default='10')
     parser.add_argument( '-l', '--labels', type=str, default='coco/coco.txt')
     args = parser.parse_args()
+    model_path = f"models/hailo/{args.model}.hef"
 
-    if not os.path.exists(args.model):
+    if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found: {args.model}")
     
-    model = f"models/hailo/{args.model}.hef"
+    model = model_path
     batch_size = args.batch_size
     n_images = args.n_images
     labels = args.labels
