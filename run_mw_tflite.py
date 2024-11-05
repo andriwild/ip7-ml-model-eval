@@ -61,7 +61,7 @@ def load_all_images(folder_path: str) -> list[str]:
     return all_images
 
 
-all_images = load_all_images("/home/andri/repos/ip7-ml-model-eval/images/root/")
+all_images = load_all_images("images/root/")
 #all_images = load_all_images("/home/andri/fhnw/MSE/IP7/ml/dataset/flower_kaggle/flower_dataset_v4_yolo/flower_dataset_v4_yolo/images/test/")
 
 
