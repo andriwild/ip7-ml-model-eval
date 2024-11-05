@@ -1,5 +1,9 @@
 #!/bin/bash
 
+python3 -m venv .venv
+python3 -m venv .tpu
+python3 -m venv .hailo
+
 cd coco
 mkdir images
 cd images
