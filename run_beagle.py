@@ -80,13 +80,11 @@ def main(model_path, num_images, image_dir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', required=True, help='Pfad zur .tflite-Modelldatei')
-    parser.add_argument('--image_dir', required=True, help='Verzeichnis mit den Bildern')
     parser.add_argument('--n_images', type=int, default=10, help='Anzahl der zu verarbeitenden Bilder')
     args = parser.parse_args()
 
     model = args.model
-    n_images = args.num_images
-    image_dir = args.image_dir
+    n_images = args.n_images
     model_path = f"models/edgetpu/{model}.tflite"
 
     with open("config.yaml", "r") as stream:
@@ -99,7 +97,7 @@ if __name__ == "__main__":
     output_file = cfg.get("output_file")
 
     cprint(f"Run beagle benchmark: {model_path}, {n_images} images", "green")
-    avg_inference_time = main(model_path, n_images, image_dir)
+    avg_inference_time = main(model_path, n_images, image_folder)
 
     write_results([model, "coral usb", avg_inference_time], output_file)
     gc.collect()
