@@ -35,7 +35,7 @@ def write_results(results, output_file):
 
 
 
-def main(model_path, num_images, image_dir):
+def main(model_path, num_images, image_folder):
 
     interpreter = Interpreter(model_path=model_path)
     interpreter.allocate_tensors()
@@ -44,7 +44,7 @@ def main(model_path, num_images, image_dir):
     height, width = input_details[0]['shape'][1:3]
     floating_model = (input_details[0]['dtype'] == np.float32)
 
-    image_paths = load_all_images(args.image_dir, num_images)
+    image_paths = load_all_images(image_folder, num_images)
     if not image_paths:
         print(f"Keine Bilder im Verzeichnis {args.image_dir} gefunden.")
         sys.exit()
