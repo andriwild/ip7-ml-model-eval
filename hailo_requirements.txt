@@ -1,5 +1,0 @@
-pyyaml
-termcolor
-loguru
-pillow
-

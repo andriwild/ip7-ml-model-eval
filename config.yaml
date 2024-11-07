@@ -5,4 +5,4 @@ image_folder:
 coco_classes:
   'coco/coco.txt'
 output_file:
-  'data/measurements.csv'
+  'data/xps-measurements.csv'
