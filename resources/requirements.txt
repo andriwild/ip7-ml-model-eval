@@ -1,0 +1,11 @@
+ultralytics
+termcolor
+torch
+csv_logger
+torchvision
+torch
+pycocotools
+numpy==1.23.3
+loguru
+Pillow>=8.1.2
+pathlib
