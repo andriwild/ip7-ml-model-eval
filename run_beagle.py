@@ -5,7 +5,8 @@ import sys
 import time
 import csv
 from typing import List
-from tflite_runtime.interpreter import Interpreter, tflite
+from tflite_runtime.interpreter import Interpreter
+import tflite_runtime.interpreter as tflite
 from PIL import Image, ImageDraw
 from termcolor import cprint  # Falls für farbige Ausgaben benötigt
 import yaml
@@ -37,7 +38,7 @@ def write_results(results, output_file):
 
 def main(model_path, num_images, image_folder):
     interpreter = Interpreter(
-            model_path=model_path,
+            model_path=model_path
             experimental_delegates=[
                 tflite.load_delegate("libedgetpu.so.1")
             ]
@@ -45,8 +46,12 @@ def main(model_path, num_images, image_folder):
     interpreter.allocate_tensors()
 
     input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
     height, width = input_details[0]['shape'][1:3]
-    floating_model = (input_details[0]['dtype'] == np.float32)
+    input_dtype = input_details[0]['dtype']
+    input_scale, input_zero_point = input_details[0]['quantization']
+    print("Input Details:", input_details)
+    print("Output Details:", output_details)
 
     image_paths = load_all_images(image_folder, num_images)
     if not image_paths:
@@ -61,10 +66,24 @@ def main(model_path, num_images, image_folder):
         image_resized = image.resize((width, height))
         input_data = np.expand_dims(image_resized, axis=0)
 
-        if floating_model:
+        if input_dtype == np.float32:
+            # Floating Point Modell
             input_data = (np.float32(input_data) / 255.0)
+        elif input_dtype == np.uint8:
+            # UINT8 quantisiertes Modell
+            if input_scale != 0:
+                input_data = np.uint8((np.float32(input_data) / 255.0) / input_scale + input_zero_point)
+            else:
+                input_data = np.uint8(input_data)
+        elif input_dtype == np.int8:
+            # INT8 quantisiertes Modell
+            if input_scale != 0:
+                input_data = np.int8((np.float32(input_data) / 255.0 - input_zero_point) / input_scale)
+            else:
+                input_data = np.int8(input_data - 128)
         else:
-            input_data = np.uint8(input_data)
+            raise ValueError(f"Unsupported input type: {input_dtype}")
+
 
         interpreter.set_tensor(input_details[0]['index'], input_data)
 
