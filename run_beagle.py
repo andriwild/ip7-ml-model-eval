@@ -5,7 +5,7 @@ import sys
 import time
 import csv
 from typing import List
-from tflite_runtime.interpreter import Interpreter
+from tflite_runtime.interpreter import Interpreter, tflite
 from PIL import Image, ImageDraw
 from termcolor import cprint  # Falls für farbige Ausgaben benötigt
 import yaml
@@ -36,8 +36,10 @@ def write_results(results, output_file):
 
 
 def main(model_path, num_images, image_folder):
-
-    interpreter = Interpreter(model_path=model_path)
+    interpreter = Interpreter(
+            model_path=model_path,
+            tflite.load_delegate("libedgetpu.so.1")
+            )
     interpreter.allocate_tensors()
 
     input_details = interpreter.get_input_details()
