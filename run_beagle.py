@@ -38,7 +38,9 @@ def write_results(results, output_file):
 def main(model_path, num_images, image_folder):
     interpreter = Interpreter(
             model_path=model_path,
-            tflite.load_delegate("libedgetpu.so.1")
+            experimental_delegates=[
+                tflite.load_delegate("libedgetpu.so.1")
+            ]
             )
     interpreter.allocate_tensors()
 
