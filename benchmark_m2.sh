@@ -6,8 +6,6 @@ DEFAULT_N_IMAGES=10
 
 N_IMAGES=${1:-$DEFAULT_N_IMAGES}
 
-python3 ./run_coral_usb.py --model yolov8s --n_images $N_IMAGES
-
 MODELS=(
     yolov10b
     yolov10n
