@@ -88,7 +88,6 @@ if __name__ == "__main__":
     parser.add_argument('--n_images', type=int, default=10, help='Anzahl der zu verarbeitenden Bilder')
     args = parser.parse_args()
 
-    model = args.model
     n_images = args.n_images
     model_path = args.model_path
 
@@ -103,7 +102,8 @@ if __name__ == "__main__":
 
     cprint(f"Run beagle benchmark: {model_path}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
+    model_name = model_path.split("/")[-1].split(".")[0]
 
-    write_results([model, "m2 edgetpu", avg_inference_time], output_file)
+    write_results([model_name, "m2 edgetpu", avg_inference_time], output_file)
     gc.collect()
 
