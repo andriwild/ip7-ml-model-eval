@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     model = args.model
     n_images = args.n_images
-    model_path = f"models/edgetpu/{model}.tflite"
+    model_path = f"models/edgetpu/{model}_full_integer_quant_edgetpu.tflite"
 
     with open("config.yaml", "r") as stream:
         try:
