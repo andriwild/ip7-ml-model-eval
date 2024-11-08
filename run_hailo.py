@@ -80,5 +80,5 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {args.model}, batch_size={batch_size}, {n_images} images, labels:{labels}", "green")
     avg_inference_time = main(model_path, batch_size, n_images, labels, image_folder)
 
-    write_results([args.model, "hailo", avg_inference_time, batch_size ], output_file)
+    write_results([args.model, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
     gc.collect()

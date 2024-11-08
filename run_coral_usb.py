@@ -26,19 +26,17 @@ def main(model_path, n_images, image_folder):
     # Warm up the model
     model.predict(images[0], device="tpu:0")
     
-    
     # Start the benchmark
-    start_time = time.time()
-    for img in images:
-        model.predict(img, device="tpu:0")
+    inference_time = 0
+    print(len(images))
+    for image in images:
+        output = model.predict(image, device="tpu:0")
+        inference_time += output[0].speed["inference"]
 
-    end_time = time.time()
-
-    avg_inference_time = (end_time - start_time) / n_images
-    cprint(f"Total time: {end_time - start_time}", "green")
+    avg_inference_time = inference_time / n_images
     cprint(f"Number of processed images: {n_images}", "green")
     cprint(f"Average time per image: {avg_inference_time}", "green")
-    cprint(f"Inference runs on: {platform.node()}", "green")
+    cprint(f"Inference runs on: {platform.uname()}", "green")
     return avg_inference_time
 
 
@@ -69,5 +67,5 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
 
-    write_results([model, "coral usb", avg_inference_time], output_file)
+    write_results([model, f"{platform.node()} + Coral USB Edge TPU", avg_inference_time, 1], output_file)
     gc.collect()
