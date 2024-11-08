@@ -21,7 +21,7 @@ MODELS=(
 )
 
 for MODEL in "${MODELS[@]}"; do
-    python3 ./run_m2_edgetpu.py --model "models/edgetpu/$(MODEL)_full_integer_quant_edgetpu.tflite" --n_images $N_IMAGES
+    python3 ./run_m2_edgetpu.py --model "models/edgetpu/${MODEL}_full_integer_quant_edgetpu.tflite" --n_images $N_IMAGES
     sleep 1 
 done
 
