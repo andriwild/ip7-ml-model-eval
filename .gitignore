@@ -16,3 +16,4 @@ coco/val2017/
 coco/annotations/
 !models/
 yolo*
+runs/

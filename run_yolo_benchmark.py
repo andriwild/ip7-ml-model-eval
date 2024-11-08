@@ -1,3 +1,4 @@
+from torch import pca_lowrank
 from ultralytics import YOLO
 import argparse
 from utility.loader import load_all_images
@@ -8,6 +9,7 @@ import yaml
 from termcolor import cprint
 import csv
 import gc
+from pprint import pprint
 
 
 def write_results(results, output_file):
@@ -17,44 +19,43 @@ def write_results(results, output_file):
     cprint(f"Results written to {output_file}", "green")
 
 
-def main(base_model, target, n_images, image_folder):
-    model = YOLO(base_model)
-    model_path = model.export(format=target)
+def main(model, model_type, n_images, image_folder):
 
-    target_model = YOLO(model_path)
-
-    del model
+    model = YOLO(model)
+    if model_type != "pt":
+        model_path = model.export(format=target)
+        model = YOLO(model_path)
 
     images = load_all_images(image_folder, n_images)
     
     # Warm up
-    target_model.predict(images[0], device="cpu")
+    model.predict(images[0], device="cpu")
 
     # Start the benchmark
-    start_time = time.time()
+    inference_time = 0
+    print(len(images))
     for image in images:
-        target_model.predict(image, device="cpu")
-    end_time = time.time()
+        output = model.predict(image, device="cpu")
+        inference_time += output[0].speed["inference"]
 
-    avg_inference_time = (end_time - start_time) / n_images
-    cprint(f"Total time: {end_time - start_time}", "green")
+    avg_inference_time = inference_time / n_images
     cprint(f"Number of processed images: {n_images}", "green")
     cprint(f"Average time per image: {avg_inference_time}", "green")
-    cprint(f"Inference runs on: {platform.node()}", "green")
+    cprint(f"Inference runs on: {platform.uname()}", "green")
     return avg_inference_time
 
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Performance Test: Yolo Models')
-    parser.add_argument( '-m', '--base_model', type=str, default='yolov8s')
-    parser.add_argument( '-t', '--target', type=str, default='tflite')
+    parser.add_argument( '-m', '--model', type=str, default='yolov8s')
+    parser.add_argument( '-t', '--type', type=str, default='pt')
     parser.add_argument( '-n', '--n_images', type=int, default='10')
     args = parser.parse_args()
 
-    model = args.base_model
+    model = args.model
     n_images = args.n_images
-    target = args.target
+    target = args.type
 
     with open("config.yaml", "r") as stream:
         try:

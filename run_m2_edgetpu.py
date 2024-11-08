@@ -12,20 +12,7 @@ from termcolor import cprint  # Falls für farbige Ausgaben benötigt
 import yaml
 import gc
 import platform
-
-
-def load_all_images(folder_path: str, num_images: int) -> List[str]:
-    images = []
-    img_ext = ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']
-
-    for file in os.listdir(folder_path):
-        if any(file.lower().endswith(ext) for ext in img_ext):
-            img_path = os.path.join(folder_path, file)
-            images.append(img_path)
-            if len(images) >= num_images:
-                break
-
-    return images
+from utility.loader import load_all_images
 
 
 def write_results(results, output_file):
@@ -38,7 +25,7 @@ def write_results(results, output_file):
 
 def main(model_path, num_images, image_folder):
     interpreter = Interpreter(
-            model_path=model_path
+            model_path=model_path,
             experimental_delegates=[
                 tflite.load_delegate("libedgetpu.so.1")
             ]
@@ -50,6 +37,7 @@ def main(model_path, num_images, image_folder):
     height, width = input_details[0]['shape'][1:3]
     input_dtype = input_details[0]['dtype']
     input_scale, input_zero_point = input_details[0]['quantization']
+
     print("Input Details:", input_details)
     print("Output Details:", output_details)
 
@@ -122,6 +110,6 @@ if __name__ == "__main__":
     cprint(f"Run beagle benchmark: {model_path}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
 
-    write_results([model, "coral usb", avg_inference_time], output_file)
+    write_results([model, "m2 edgetpu", avg_inference_time], output_file)
     gc.collect()
 
