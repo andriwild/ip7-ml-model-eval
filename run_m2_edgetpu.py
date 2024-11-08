@@ -74,7 +74,8 @@ def main(model_path, num_images, image_folder):
         end_time = time.perf_counter()
         inference_time += end_time - start_time
 
-    avg_inference_time = inference_time / n_images
+    avg_inference_time = inference_time / n_images # in seconds
+    avg_inference_time *= 1000 # in milliseconds
     cprint(f"Total time: {inference_time}", "green")
     cprint(f"Number of processed images: {n_images}", "green")
     cprint(f"Average time per image: {avg_inference_time}", "green")
