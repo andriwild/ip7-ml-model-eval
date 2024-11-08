@@ -52,12 +52,13 @@ def main(model, batch_size, n_images, labels, image_folder) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Performance Test on Hailo8l')
-    parser.add_argument( '-m', '--model', type=str, default='yolov8n')
+    parser.add_argument( '-m', '--model', type=str, default='models/hailo8l/yolov8n.hef')
     parser.add_argument( '-b', '--batch_size', type=int, default='10')
     parser.add_argument( '-n', '--n_images', type=int, default='10')
     parser.add_argument( '-l', '--labels', type=str, default='coco/coco.txt')
     args = parser.parse_args()
-    model_path = f"models/hailo/{args.model}.hef"
+
+    model_path = args.model
 
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found: {args.model}")

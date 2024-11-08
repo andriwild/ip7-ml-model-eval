@@ -21,8 +21,17 @@ MODELS=(
     yolov8x
 )
 
+# 8l Models
+
 for MODEL in "${MODELS[@]}"; do
-    python3 run_hailo.py --model "$MODEL" --batch_size $DEFAULT_BATCH_SIZE --n_images $N_IMAGES
+    python3 run_hailo.py --model "models/hailo8l/${MODEL}.hef" --batch_size $DEFAULT_BATCH_SIZE --n_images $N_IMAGES
+    sleep 2 
+done
+
+# 8 Models
+
+for MODEL in "${MODELS[@]}"; do
+    python3 run_hailo.py --model "models/hailo8/${MODEL}.hef" --batch_size $DEFAULT_BATCH_SIZE --n_images $N_IMAGES
     sleep 2 
 done
 
