@@ -1,18 +1,17 @@
-import os
 import argparse
 import numpy as np
 import sys
 import time
-import csv
-from typing import List
-from tflite_runtime.interpreter import Interpreter
-import tflite_runtime.interpreter as tflite
-from PIL import Image, ImageDraw
-from termcolor import cprint  # Falls für farbige Ausgaben benötigt
 import yaml
 import gc
 import platform
+import csv
+from tflite_runtime.interpreter import Interpreter
+import tflite_runtime.interpreter as tflite
+from PIL import Image
+from termcolor import cprint
 from utility.loader import load_all_images
+from multiprocessing import cpu_count
 
 
 def write_results(results, output_file):
@@ -26,24 +25,19 @@ def write_results(results, output_file):
 def main(model_path, num_images, image_folder):
     interpreter = Interpreter(
             model_path=model_path,
-            experimental_delegates=[
-                tflite.load_delegate("libedgetpu.so.1")
-            ]
+            num_threads=cpu_count(),
+            experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")]
             )
     interpreter.allocate_tensors()
 
     input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
     height, width = input_details[0]['shape'][1:3]
     input_dtype = input_details[0]['dtype']
     input_scale, input_zero_point = input_details[0]['quantization']
 
-    print("Input Details:", input_details)
-    print("Output Details:", output_details)
-
     image_paths = load_all_images(image_folder, num_images)
     if not image_paths:
-        print(f"Keine Bilder im Verzeichnis {args.image_dir} gefunden.")
+        print(f"No images found in {args.image_dir}!")
         sys.exit()
 
     inference_time = 0
@@ -58,13 +52,13 @@ def main(model_path, num_images, image_folder):
             # Floating Point Modell
             input_data = (np.float32(input_data) / 255.0)
         elif input_dtype == np.uint8:
-            # UINT8 quantisiertes Modell
+            # uint8 quant modell
             if input_scale != 0:
                 input_data = np.uint8((np.float32(input_data) / 255.0) / input_scale + input_zero_point)
             else:
                 input_data = np.uint8(input_data)
         elif input_dtype == np.int8:
-            # INT8 quantisiertes Modell
+            # int8 quant modell
             if input_scale != 0:
                 input_data = np.int8((np.float32(input_data) / 255.0 - input_zero_point) / input_scale)
             else:
@@ -90,13 +84,13 @@ def main(model_path, num_images, image_folder):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', required=True, help='Pfad zur .tflite-Modelldatei')
+    parser.add_argument('--model_path', required=True, help='Pfad zur Modelldatei')
     parser.add_argument('--n_images', type=int, default=10, help='Anzahl der zu verarbeitenden Bilder')
     args = parser.parse_args()
 
     model = args.model
     n_images = args.n_images
-    model_path = f"models/edgetpu/{model}_full_integer_quant_edgetpu.tflite"
+    model_path = args.model_path
 
     with open("config.yaml", "r") as stream:
         try:
