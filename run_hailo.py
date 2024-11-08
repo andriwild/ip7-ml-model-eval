@@ -42,10 +42,11 @@ def main(model, batch_size, n_images, labels, image_folder) -> None:
     infer(images, model, labels, batch_size, output_path, postprecessing=False)
     end_time = time.time()
 
-    avg_inference_time = (end_time - start_time) / n_images
-    cprint(f"Total time: {end_time - start_time}", "green")
+    avg_inference_time = (end_time - start_time) / n_images # in seconds
+    avg_inference_time = avg_inference_time * 1000 # in milliseconds
+    cprint(f"Total time: {end_time - start_time} s", "green")
     cprint(f"Number of processed images: {n_images}", "green")
-    cprint(f"Average time per image: {avg_inference_time}", "green")
+    cprint(f"Average time per image: {avg_inference_time} ms", "green")
     cprint(f"Inference runs on: {platform.node()}", "green")
     return avg_inference_time
 
@@ -81,5 +82,6 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {args.model}, batch_size={batch_size}, {n_images} images, labels:{labels}", "green")
     avg_inference_time = main(model_path, batch_size, n_images, labels, image_folder)
 
-    write_results([args.model, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
+    model_name = model_path.split("/")[-1].split(".")[0]
+    write_results([model_name, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
     gc.collect()
