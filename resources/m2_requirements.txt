@@ -1,0 +1,6 @@
+numpy==1.23.3
+pillow
+PyYAML
+termcolor
+tflite==2.10.0
+tflite-runtime==2.14.0
