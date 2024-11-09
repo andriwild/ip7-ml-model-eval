@@ -12,6 +12,7 @@ import queue
 import threading
 from PIL import Image
 from typing import List
+import time
 
 from utility.benchmark import TimeMeasure
 from inference.hailo.object_detection_utils import ObjectDetectionUtils
@@ -129,9 +130,13 @@ def infer(
     if postprecessing:
         process_thread.start()
     
+    start = time.perf_counter()
     hailo_inference.run()
+    end = time.perf_counter()
 
     enqueue_thread.join()
     output_queue.put(None)  # Signal process thread to exit
     if postprecessing:
         process_thread.join()
+
+    return end - start

@@ -36,13 +36,11 @@ def main(model, batch_size, n_images, labels, image_folder) -> None:
     output_path.mkdir(exist_ok=True)
     
     # warm up
-    infer(images[:2], model, labels, batch_size, output_path, postprecessing=False)
+    infer(images[:batch_size], model, labels, batch_size, output_path, postprecessing=False)
 
-    start_time = time.time()
-    infer(images, model, labels, batch_size, output_path, postprecessing=False)
-    end_time = time.time()
+    duration = infer(images, model, labels, batch_size, output_path, postprecessing=False)
 
-    avg_inference_time = (end_time - start_time) / n_images # in seconds
+    avg_inference_time = duration / n_images # in seconds
     avg_inference_time = avg_inference_time * 1000 # in milliseconds
     cprint(f"Total time: {end_time - start_time} s", "green")
     cprint(f"Number of processed images: {n_images}", "green")
