@@ -42,7 +42,7 @@ def main(model, batch_size, n_images, labels, image_folder) -> None:
 
     avg_inference_time = duration / n_images # in seconds
     avg_inference_time = avg_inference_time * 1000 # in milliseconds
-    cprint(f"Total time: {end_time - start_time} s", "green")
+    cprint(f"Total time: {duration} s", "green")
     cprint(f"Number of processed images: {n_images}", "green")
     cprint(f"Average time per image: {avg_inference_time} ms", "green")
     cprint(f"Inference runs on: {platform.node()}", "green")
