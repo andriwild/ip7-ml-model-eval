@@ -55,6 +55,7 @@ if __name__ == "__main__":
     parser.add_argument( '-b', '--batch_size', type=int, default='10')
     parser.add_argument( '-n', '--n_images', type=int, default='10')
     parser.add_argument( '-l', '--labels', type=str, default='coco/coco.txt')
+    parser.add_argument( '-t', '--target', type=str)
     args = parser.parse_args()
 
     model_path = args.model
@@ -81,5 +82,5 @@ if __name__ == "__main__":
     avg_inference_time = main(model_path, batch_size, n_images, labels, image_folder)
 
     model_name = model_path.split("/")[-1].split(".")[0]
-    write_results([model_name, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
+    write_results([args.target, model_name, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
     gc.collect()

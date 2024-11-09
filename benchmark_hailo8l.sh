@@ -24,7 +24,7 @@ MODELS=(
 # 8l Models
 
 for MODEL in "${MODELS[@]}"; do
-    python3 run_hailo.py --model "models/hailo8l/${MODEL}.hef" --batch_size $DEFAULT_BATCH_SIZE --n_images $N_IMAGES
+    python3 run_hailo.py --model "models/hailo8l/${MODEL}.hef" --batch_size $DEFAULT_BATCH_SIZE --n_images $N_IMAGES --target "hailo8l"
     sleep 2 
 done
 
