@@ -67,5 +67,5 @@ if __name__ == "__main__":
     cprint(f"Run hailo benchmark: {model}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
 
-    write_results([model, f"{platform.node()} + Coral USB Edge TPU", avg_inference_time, 1], output_file)
+    write_results([platform.node(), "usb_edgetpu", model, "tflite", avg_inference_time, 1], output_file)
     gc.collect()

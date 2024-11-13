@@ -105,6 +105,6 @@ if __name__ == "__main__":
     avg_inference_time = main(model_path, n_images, image_folder)
     model_name = model_path.split("/")[-1].split(".")[0]
 
-    write_results([model_name, f"{platform.node()} + M.2 PCI Edge TPU", avg_inference_time, 1], output_file)
+    write_results([platform.node(), "pci_edgetpu", model_name, "tflite", avg_inference_time, 1], output_file)
     gc.collect()
 

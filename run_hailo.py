@@ -82,5 +82,6 @@ if __name__ == "__main__":
     avg_inference_time = main(model_path, batch_size, n_images, labels, image_folder)
 
     model_name = model_path.split("/")[-1].split(".")[0]
-    write_results([args.target, model_name, f"{platform.node()} + Hailo8l", avg_inference_time, batch_size], output_file)
+
+    write_results([platform.node(), args.target, model_name, "hailo", avg_inference_time, batch_size], output_file)
     gc.collect()

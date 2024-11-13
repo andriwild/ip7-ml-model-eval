@@ -71,6 +71,6 @@ if __name__ == "__main__":
 
     avg_inference_time = main(model, target, n_images, image_folder)
 
-    write_results([model, target, avg_inference_time, 1], output_file)
+    write_results([platform.node(), "no accelerator", model, target, avg_inference_time, 1], output_file)
     gc.collect()
 
