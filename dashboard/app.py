@@ -8,6 +8,8 @@ from pages.analysis import analysis_layout
 from pages.dashboard import dashboard_layout
 from pages.hardware import hardware_layout
 from pages.research import research_layout
+from pages.ml import ml_layout
+from pages.management import management_layout
 
 # Load data
 file_folder = 'data/'
@@ -16,6 +18,9 @@ devices_df = pd.read_csv( file_folder + 'devices.csv')
 camera_df = pd.read_csv( file_folder + 'cameras.csv')
 criteria_df = pd.read_csv( file_folder + 'criteria.csv')
 map_df = pd.read_csv( file_folder + 'map.csv')
+frameworks_df = pd.read_csv(file_folder + 'frameworks.csv')
+mw_pytorch_df = pd.read_csv( file_folder + 'mw/pytorch/rpi5_mw_pytorch.csv')
+mw_tflite_df = pd.read_csv( file_folder + 'mw/tflite/rpi5_mw_tflite.csv')
 
 batch_sizes = inference_df['batch_size'].unique()
 
@@ -44,7 +49,16 @@ filtered_df = inference_df
 filtered_df['device_framework'] = filtered_df.apply(lambda row: f"{row['device']} {row['accelerator']} {row['framework']}", axis=1)
 
 # Initialize the app
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX], suppress_callback_exceptions=True, title="Model Eval")
+stylesheets = [
+    dbc.themes.LUX,
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  # Font Awesome CSS
+    ]
+
+app = dash.Dash(
+        __name__, 
+        external_stylesheets=stylesheets,
+        suppress_callback_exceptions=True, 
+        title="Model Eval")
 
 # Create navbar
 navbar = dbc.NavbarSimple(
@@ -56,7 +70,9 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Dashboard", href="/", active=True, id='dashboard-link')),
         dbc.NavItem(dbc.NavLink("Analysis", href="/analysis", id='analysis-link')),
         dbc.NavItem(dbc.NavLink("Hardware", href="/hardware", id='hardware-link')),
+        dbc.NavItem(dbc.NavLink("ML", href="/ml", id='ml-link')),
         dbc.NavItem(dbc.NavLink("Research", href="/research", id='research-link')),
+        dbc.NavItem(dbc.NavLink("Management", href="/management", id='management-link')),
     ]
 )
 
@@ -75,12 +91,14 @@ app.layout = html.Div([
         Output('dashboard-link', 'active'),
         Output('analysis-link', 'active'),
         Output('hardware-link', 'active'),
+        Output('ml-link', 'active'),
         Output('research-link', 'active'),
+        Output('management-link', 'active'),
         Input('url', 'pathname')
         )
 
 def display_page(pathname):
-    n_pages = 4
+    n_pages = 6
     active = [False] * n_pages
 
     match(pathname):
@@ -93,9 +111,16 @@ def display_page(pathname):
         case '/hardware':
             active[2] = True
             return hardware_layout(devices_df, camera_df), *active
-        case '/research':
+        case '/ml':
             active[3] = True
-            return research_layout(devices_df, camera_df), *active
+            return ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df), *active
+        case '/research':
+            active[4] = True
+            return research_layout(), *active
+        case '/management':
+            active[5] = True
+            return management_layout(), *active
+
 
 
 

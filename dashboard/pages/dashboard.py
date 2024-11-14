@@ -9,7 +9,7 @@ def dashboard_layout(inference_df):
     # Get unique values for controls
     devices = inference_df['device'].unique()
     accelerators = inference_df['accelerator'].unique()
-    
+
     models = inference_df['model'].unique()
     frameworks = inference_df['framework'].unique()
     batch_sizes = inference_df['batch_size'].unique()

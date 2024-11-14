@@ -22,12 +22,32 @@ def hardware_layout(devices_df, camera_df):
                         dcc.Graph(
                             id='fps-bar-chart',
                             figure=px.bar(
-                                devices_df,
+                                devices_df[devices_df['type'] == 'device'].sort_values('name'),
                                 x='name',
                                 y='cost',
                                 color='name',
                                 labels={'cost': 'CHF', 'name': 'Name'},
                                 title='Cost of Edge Devices',
+                                color_discrete_sequence=device_colors
+                                ).update_layout(template='ggplot2')
+                            )
+                        ])
+                    ], className="mb-5"),
+
+                dbc.Row([
+                    dbc.Col(html.H3("Accelerators"), className="mb-2")
+                    ]),
+                dbc.Row([
+                    dbc.Col([
+                        dcc.Graph(
+                            id='fps-bar-chart',
+                            figure=px.bar(
+                                devices_df[devices_df['type'] == 'accelerator'].sort_values('name'),
+                                x='name',
+                                y='cost',
+                                color='name',
+                                labels={'cost': 'CHF', 'name': 'Name'},
+                                title='Cost of Accelerators',
                                 color_discrete_sequence=device_colors
                                 ).update_layout(template='ggplot2')
                             )
@@ -42,11 +62,11 @@ def hardware_layout(devices_df, camera_df):
                                         html.Div(
                                             [
                                                 html.H5(device["name"], className="mb-1"),
-                                                html.Small(f"{str(device['cost'])} CHF", className="text-muted"),
+                                                html.A(html.I(className=f"fa fa-arrow-up-right-from-square me-2"), href=device["link"], target="_blank", className="mb-1"),
                                                 ],
                                             className="d-flex w-100 justify-content-between",
                                             ),
-                                        html.A("link", href=device["link"], target="_blank", className="mb-1"),
+                                                html.Small(f"{str(device['cost'])} CHF", className="text-muted"),
                                         ]
                                     )
                                  for device in devices_df.to_dict("records")]
@@ -57,12 +77,12 @@ def hardware_layout(devices_df, camera_df):
                 dbc.Row(dbc.Col([html.H5("Erkenntnisse")], className="mb-2")),
                 dbc.Row([
                     html.Ul([
-                        html.Li("Accelerator von Google Coral hat sporadisch Probleme mit der Datenübertragung."),
-                        html.Li("Modelle für die Hailo Accelerator müssen speziell angepasst werden (.hef)."),
-                        html.Li("Inferenz auf dem BeagleY-AI konnte (noch) nicht auf der eingebauten TPU durchgeführt werden."),
-                        html.Li("Die über die M.2 Schnittstelle angeschlossene TPU können auf dem Raspberry Pi 4 nicht verwendet werden (keine Schnittstelle)."),
-                        html.Li("Google Coral M.2 Dual TPU hat nach erfolgreicher Inbetriebnahme nicht mehr funktioniert."),
-                        html.Li("Support für die Python Bibliothek von Google Coral Devices eingestellt")
+                        html.Li("Google Coral accelerator has sporadic data transmission issues."),
+                        html.Li("Models for the Hailo accelerator need to be specially adapted (.hef)."),
+                        html.Li("Inference on the BeagleY-AI could not (yet) be performed on the built-in TPU."),
+                        html.Li("The TPU's connected via the M.2 interface cannot be used on the Raspberry Pi 4 (no interface)."),
+                        html.Li("Google Coral M.2 Dual TPU stopped working after successful deployment."),
+                        html.Li("Support for the Python library of Google Coral devices has been discontinued.")
                         ]),
                 ], className="mb-5"),
                 dbc.Row([
