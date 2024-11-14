@@ -5,7 +5,6 @@ from datetime import datetime
 import torch
 import platform
 import argparse
-import yaml
 from termcolor import cprint
 from utility.csv_writer import CSVWriter
 from time import perf_counter
@@ -18,7 +17,8 @@ def init_csv_writer(args) -> CSVWriter:
             "pollinator_inference",
             "n_flowers",
             "pipeline",
-            f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}"
+            "threads",
+            "batch_size",
             ]
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     return CSVWriter(f"./data/mw_tflite/{platform.node()}_cpu_inference_{timestamp}.csv", header)
@@ -93,6 +93,8 @@ def main(n_images, threads):
     
         end_inference = perf_counter()
         csv_data.append(end_inference - start_inference)
+        csv_data.append(threads)
+        csv_data.append(1)
         csv_writer.append_data(csv_data)
         csv_writer.flush()
         cprint(f"Image processed", "green")

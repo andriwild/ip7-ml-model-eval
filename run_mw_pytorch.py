@@ -25,7 +25,8 @@ def init_csv_writer(args) -> CSVWriter:
             "pollinator_inference",
             "n_flowers",
             "pipeline",
-            f"meta_data: threads={args.threads}, n_images={args.n_images}, pollinator_batch_size={args.batch_size}"
+            "threads",
+            "batch_size",
             ]
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     return CSVWriter(f"./data/mw_pytorch/{platform.node()}_cpu_inference_{timestamp}.csv", header)
@@ -59,6 +60,8 @@ def main(n_images, batch_size, threads) -> None:
     inference.run(flower_dataloader, batch_size)
 
     cprint("Inference finished", "green")
+    writer.append_data(threads)
+    writer.append_data(batch_size)
     writer.flush()
 
 
