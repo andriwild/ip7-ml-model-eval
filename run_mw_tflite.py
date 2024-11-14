@@ -51,7 +51,6 @@ def draw_boxes(draw, boxes, labels, scores, det, cropped_image):
 
 
 
-all_images = load_all_images("images/root/")
 #all_images = load_all_images("/home/andri/fhnw/MSE/IP7/ml/dataset/flower_kaggle/flower_dataset_v4_yolo/flower_dataset_v4_yolo/images/test/")
 
 
@@ -81,6 +80,7 @@ def init_models(n_threads):
 def main():
 
     args = parse_args()
+    all_images = load_all_images("images/root/", args.dataset_size)
     model_1, model_2 = init_models(args.threads)
     csv_writer = init_csv_writer(args)
     print("start tflite inference")
