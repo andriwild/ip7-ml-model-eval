@@ -89,13 +89,12 @@ def main():
     for image in all_images:
         print("processing image")
         start_inference = perf_counter()
-        csv_data = []
         image = Image.open(image)
     
         start_time = perf_counter()
         crops, result_class_names, result_scores = model_1.get_crops(image)
         end_time = perf_counter()
-        csv_data.append(end_time - start_time)
+        csv_data = [(end_time - start_time)]
     
         nr_flowers = len(result_class_names)
 
@@ -113,6 +112,7 @@ def main():
         csv_writer.append_data(csv_data)
         csv_writer.flush()
         print("flushed")
+        del csv_data
         gc.collect()
 
 
