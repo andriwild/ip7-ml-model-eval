@@ -97,7 +97,7 @@ def main(n_images, threads):
         csv_data.append(1)
         csv_writer.append_data(csv_data)
         csv_writer.flush()
-        cprint(f"Image processed", "green")
+        cprint(f"Image processed in {end_inference - start_inference}", "green")
         gc.collect()
 
 

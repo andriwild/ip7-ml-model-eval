@@ -60,6 +60,7 @@ class FilesystemDataset(Dataset):
         return len(self.img_files)
 
     def __getitem__(self, idx) -> ImageSpecification:
+        print(self.img_files[idx]) 
         img_path = os.path.join(self.img_dir, self.img_files[idx])
         try:
             print(img_path)

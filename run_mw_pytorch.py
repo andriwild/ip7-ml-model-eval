@@ -59,7 +59,7 @@ def main(n_images, batch_size, threads) -> None:
     inference = CpuInference(flower_model, FLOWER_MODEL_DIM, pollinator_model, POLLINATOR_MODEL_DIM, writer)
     inference.run(flower_dataloader, batch_size)
 
-    cprint("Inference finished", "green")
+    cprint("Inference done", "green")
     writer.append_data(threads)
     writer.append_data(batch_size)
     writer.flush()
