@@ -1,15 +1,11 @@
-from torch import pca_lowrank
 from ultralytics import YOLO
 import argparse
 from utility.loader import load_all_images
-import time
 import platform
-import os
 import yaml
 from termcolor import cprint
 import csv
 import gc
-from pprint import pprint
 
 
 def write_results(results, output_file):

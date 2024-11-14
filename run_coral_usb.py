@@ -1,4 +1,3 @@
-import time
 import platform
 import argparse
 from ultralytics import YOLO

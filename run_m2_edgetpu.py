@@ -13,13 +13,11 @@ from termcolor import cprint
 from utility.loader import load_all_images
 from multiprocessing import cpu_count
 
-
 def write_results(results, output_file):
     with open(output_file, mode='a', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(results)
     cprint(f"Results written to {output_file}", "green")
-
 
 
 def main(model_path, num_images, image_folder):
@@ -101,7 +99,7 @@ if __name__ == "__main__":
     image_folder = cfg.get("image_folder")
     output_file = cfg.get("output_file")
 
-    cprint(f"Run beagle benchmark: {model_path}, {n_images} images", "green")
+    cprint(f"Run edgetpu (pci) benchmark: {model_path}, {n_images} images", "green")
     avg_inference_time = main(model_path, n_images, image_folder)
     model_name = model_path.split("/")[-1].split(".")[0]
 

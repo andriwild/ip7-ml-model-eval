@@ -1,13 +1,12 @@
 from inference.tflite_model.tflite_inference import YoloModel
 from PIL import Image
-import os
 import gc
-from tqdm import tqdm
 from datetime import datetime
 import platform
+import argparse
 import yaml
+from termcolor import cprint
 from utility.csv_writer import CSVWriter
-from utility.arguments import parse_args
 from time import perf_counter
 from utility.loader import load_all_images
 
@@ -19,9 +18,6 @@ with open("config.yaml", "r") as stream:
         exit(1)
 
 
-MEASUREMENT_FOLDER = cfg.get("measurement_folder")
-
-
 def init_csv_writer(args) -> CSVWriter:
     header = [
             "flower_inference",
@@ -31,7 +27,8 @@ def init_csv_writer(args) -> CSVWriter:
             f"meta_data: threads={args.threads}, dataset_size={args.dataset_size}"
             ]
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    return CSVWriter(f"./{MEASUREMENT_FOLDER}/{args.data_folder}/{platform.node()}_cpu_inference_{timestamp}.csv", header)
+    return CSVWriter(f"./data/mw_tflite/{platform.node()}_cpu_inference_{timestamp}.csv", header)
+
 
 
 def draw_boxes(draw, boxes, labels, scores, det, cropped_image):
@@ -49,9 +46,6 @@ def draw_boxes(draw, boxes, labels, scores, det, cropped_image):
     label = f"Class {det['class']}: {det['score']:.2f}"
     draw.text((left, top - 10), label, fill="red")
 
-
-
-#all_images = load_all_images("/home/andri/fhnw/MSE/IP7/ml/dataset/flower_kaggle/flower_dataset_v4_yolo/flower_dataset_v4_yolo/images/test/")
 
 
 def init_models(n_threads):
@@ -77,22 +71,19 @@ def init_models(n_threads):
 
 
 
-def main():
+def main(n_images, threads):
 
-    args = parse_args()
-    all_images = load_all_images("images/root/", args.dataset_size)
-    model_1, model_2 = init_models(args.threads)
+    all_images = load_all_images("images/root/", n_images)
+    model_1, model_2 = init_models(threads)
     csv_writer = init_csv_writer(args)
-    print("start tflite inference")
-    print("found images: ", len(all_images))
+    cprint(f"Run mitwelten benchmark: {n_images} images", "green")
 
     for image in all_images:
-        print("processing image")
         start_inference = perf_counter()
         image = Image.open(image)
     
         start_time = perf_counter()
-        crops, result_class_names, result_scores = model_1.get_crops(image)
+        crops, result_class_names, _result_scores = model_1.get_crops(image)
         end_time = perf_counter()
         csv_data = [(end_time - start_time)]
     
@@ -108,14 +99,19 @@ def main():
     
         end_inference = perf_counter()
         csv_data.append(end_inference - start_inference)
-        print("inference time: ", end_inference - start_inference)
         csv_writer.append_data(csv_data)
         csv_writer.flush()
-        print("flushed")
-        del csv_data
+        cprint(f"Image processed", "green")
         gc.collect()
 
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--n_images', type=int, default=10, help='Number of images to process')
+    parser.add_argument('--batch_size', type=int, default=1, help='Batch size')
+    parser.add_argument('--threads', type=int, default=1, help='Threads to use for the inference')
+    args = parser.parse_args()
+
+    torch.set_num_threads(args.threads)
+    main(args.n_images, args.threads)

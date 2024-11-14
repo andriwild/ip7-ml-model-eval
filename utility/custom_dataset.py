@@ -4,7 +4,6 @@ from torch.utils.data import Dataset
 from dataclasses import dataclass
 from typing import Callable
 from pathlib import Path
-from utility.benchmark import TimeMeasure
 
 
 @dataclass
@@ -19,16 +18,6 @@ class ImageSpecification:
 # add padding to the image
 # makes it square (to model dimensions) on the same aspect ratio
 # (letterboxing)
-
-
-@TimeMeasure(name="flower_preprocessing")
-def flower_preprocessing(target_size: tuple[int,int], orig_image: Image.Image) -> ImageSpecification:
-    return preprocessing(target_size, orig_image)
-
-
-@TimeMeasure(name="pollinator_preprocessing")
-def pollinator_preprocessing(target_size: tuple[int,int], orig_image: Image.Image) -> ImageSpecification:
-    return preprocessing(target_size, orig_image)
 
 
 def preprocessing(target_size: tuple[int,int], orig_image: Image.Image) -> ImageSpecification:
@@ -70,7 +59,6 @@ class FilesystemDataset(Dataset):
     def __len__(self):
         return len(self.img_files)
 
-    @TimeMeasure(name="Filesystem_getitem")
     def __getitem__(self, idx) -> ImageSpecification:
         img_path = os.path.join(self.img_dir, self.img_files[idx])
         try:
@@ -94,6 +82,5 @@ class InMemoryDateset(Dataset):
     def __len__(self):
         return len(self.images)
 
-    @TimeMeasure(name="InMemory_getitem")
     def __getitem__(self, idx) -> ImageSpecification:
         return self.transform(self.images[idx])

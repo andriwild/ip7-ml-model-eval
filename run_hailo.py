@@ -1,7 +1,6 @@
 import platform
 import os
 import argparse
-import time
 from pathlib import Path
 from termcolor import cprint
 import yaml
