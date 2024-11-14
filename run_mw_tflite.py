@@ -10,13 +10,6 @@ from utility.csv_writer import CSVWriter
 from time import perf_counter
 from utility.loader import load_all_images
 
-with open("config.yaml", "r") as stream:
-    try:
-        cfg = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
-        exit(1)
-
 
 def init_csv_writer(args) -> CSVWriter:
     header = [

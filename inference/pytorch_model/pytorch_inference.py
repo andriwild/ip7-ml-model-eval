@@ -13,7 +13,7 @@ from typing import List
 from time import perf_counter
 POLLINATOR_MODEL_DIM  = (480, 480)
 
-from utility.custom_dataset import InMemoryDateset, pollinator_preprocessing
+from utility.custom_dataset import InMemoryDateset
 
 @dataclass
 class DetectionBox:
