@@ -1,0 +1,8 @@
+measurement_folder:
+  'data/tflite'
+image_folder:
+  'coco/images/val2017/'
+coco_classes:
+  'coco/coco.txt'
+output_file:
+  'data/xps-measurements.csv'
