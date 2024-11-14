@@ -12,6 +12,7 @@ from utility.csv_writer import CSVWriter
 from typing import List
 from time import perf_counter
 POLLINATOR_MODEL_DIM  = (480, 480)
+from utility.custom_dataset import preprocessing
 
 from utility.custom_dataset import InMemoryDateset
 
@@ -79,7 +80,7 @@ class CpuInference:
 
                 flower_dataset = InMemoryDateset(
                     images=cropped_images,
-                    transform=lambda img: pollinator_preprocessing(POLLINATOR_MODEL_DIM, img)
+                    transform=lambda img: preprocessing(POLLINATOR_MODEL_DIM, img)
                     )
 
                 pollinator_dataloader = DataLoader(
