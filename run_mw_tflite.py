@@ -2,6 +2,7 @@ from inference.tflite_model.tflite_inference import YoloModel
 from PIL import Image
 import gc
 from datetime import datetime
+import torch
 import platform
 import argparse
 import yaml
