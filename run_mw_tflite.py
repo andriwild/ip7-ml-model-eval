@@ -9,6 +9,7 @@ import yaml
 from utility.csv_writer import CSVWriter
 from utility.arguments import parse_args
 from time import perf_counter
+from utility.loader import load_all_images
 
 with open("config.yaml", "r") as stream:
     try:
@@ -49,17 +50,6 @@ def draw_boxes(draw, boxes, labels, scores, det, cropped_image):
     draw.text((left, top - 10), label, fill="red")
 
 
-def load_all_images(folder_path: str) -> list[str]:
-    all_images = []
-    img_ext: list[str] = ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']
-
-    for file in os.listdir(folder_path):
-        if any(file.lower().endswith(ext) for ext in img_ext):
-            img_path: str = os.path.join(folder_path, file)
-            all_images.append(img_path)
-
-    return all_images
-
 
 all_images = load_all_images("images/root/")
 #all_images = load_all_images("/home/andri/fhnw/MSE/IP7/ml/dataset/flower_kaggle/flower_dataset_v4_yolo/flower_dataset_v4_yolo/images/test/")
@@ -93,8 +83,11 @@ def main():
     args = parse_args()
     model_1, model_2 = init_models(args.threads)
     csv_writer = init_csv_writer(args)
+    print("start tflite inference")
+    print("found images: ", len(all_images))
 
     for image in all_images:
+        print("processing image")
         start_inference = perf_counter()
         csv_data = []
         image = Image.open(image)
@@ -116,8 +109,10 @@ def main():
     
         end_inference = perf_counter()
         csv_data.append(end_inference - start_inference)
+        print("inference time: ", end_inference - start_inference)
         csv_writer.append_data(csv_data)
         csv_writer.flush()
+        print("flushed")
         gc.collect()
 
 
