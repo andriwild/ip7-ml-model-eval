@@ -1,4 +1,3 @@
-import os
 from PIL import Image
 from torch.utils.data import Dataset
 from dataclasses import dataclass
@@ -14,12 +13,9 @@ class ImageSpecification:
     vertical_pad: int
 
 
-
 # add padding to the image
 # makes it square (to model dimensions) on the same aspect ratio
 # (letterboxing)
-
-
 def preprocessing(target_size: tuple[int,int], orig_image: Image.Image) -> ImageSpecification:
     
     iw, ih = orig_image.size
