@@ -32,4 +32,5 @@ class CSVWriter:
             writer = csv.writer(csvfile)
             for data in self.cache_data:
                 writer.writerow(data)
+        self.cache_data = []
 
