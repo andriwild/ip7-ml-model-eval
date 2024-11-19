@@ -8,7 +8,7 @@ N_IMAGES=${1:-$DEFAULT_N_IMAGES}
 
 models_v8=("yolov8n" "yolov8s" "yolov8m")
 models_v5=("yolov5nu" "yolov5su" "yolov5mu")
-types=("tflite" "onnx" "ncnn" "pt")
+types=("tflite_f32" "tflite_f16" "tflite_int8" "onnx" "ncnn" "pt")
 
 # YOLOv8
 for model in "${models_v8[@]}"; do

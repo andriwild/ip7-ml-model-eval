@@ -15,11 +15,18 @@ def write_results(results, output_file):
     cprint(f"Results written to {output_file}", "green")
 
 
-def main(model, model_type, n_images, image_folder):
+def main(model, model_variant, model_type, n_images, image_folder):
 
     model = YOLO(model)
     if model_type != "pt":
-        model_path = model.export(format=target)
+
+        if model_variant == "int8":
+            model_path = model.export(format=model_type, int8=True)
+        elif model_variant == "half":
+            model_path = model.export(format=model_type, half=True)
+        else:
+            model_path = model.export(format=model_type)
+
         model = YOLO(model_path)
 
     images = load_all_images(image_folder, n_images)
@@ -29,7 +36,6 @@ def main(model, model_type, n_images, image_folder):
 
     # Start the benchmark
     inference_time = 0
-    print(len(images))
     for image in images:
         output = model.predict(image, device="cpu")
         inference_time += output[0].speed["inference"]
@@ -53,6 +59,14 @@ if __name__ == "__main__":
     n_images = args.n_images
     target = args.type
 
+    model_parts = model.split("_")
+    if len(model_parts) == 2:
+        model_name = model_parts[0]
+        model_variant = model_parts[1]
+    else:
+        model_name = model
+        model_variant = None
+
     with open("config.yaml", "r") as stream:
         try:
             cfg = yaml.safe_load(stream)
@@ -65,7 +79,8 @@ if __name__ == "__main__":
 
     cprint(f"Run yolo benchmark: {model}, {n_images} images", "green")
 
-    avg_inference_time = main(model, target, n_images, image_folder)
+
+    avg_inference_time = main(model_name, model_variant, target, n_images, image_folder)
 
     write_results([platform.node(), "no accelerator", model, target, avg_inference_time, 1], output_file)
     gc.collect()
