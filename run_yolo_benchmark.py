@@ -15,17 +15,17 @@ def write_results(results, output_file):
     cprint(f"Results written to {output_file}", "green")
 
 
-def main(model, model_variant, model_type, n_images, image_folder):
+def main(model, target_name, target_variant, n_images, image_folder):
 
     model = YOLO(model)
-    if model_type != "pt":
+    if target_name != "pt":
 
-        if model_variant == "int8":
-            model_path = model.export(format=model_type, int8=True)
-        elif model_variant == "half":
-            model_path = model.export(format=model_type, half=True)
+        if target_variant == "int8":
+            model_path = model.export(format=target_name, int8=True)
+        elif target_variant == "f16":
+            model_path = model.export(format=target_name, half=True)
         else:
-            model_path = model.export(format=model_type)
+            model_path = model.export(format=target_name)
 
         model = YOLO(model_path)
 
@@ -59,13 +59,13 @@ if __name__ == "__main__":
     n_images = args.n_images
     target = args.type
 
-    model_parts = model.split("_")
-    if len(model_parts) == 2:
-        model_name = model_parts[0]
-        model_variant = model_parts[1]
+    target_parts = target.split("_")
+    if len(target_parts) == 2:
+        target_name = target_parts[0]
+        target_variant = target_parts[1]
     else:
-        model_name = model
-        model_variant = None
+        target_name = target
+        target_variant = None
 
     with open("config.yaml", "r") as stream:
         try:
@@ -77,11 +77,11 @@ if __name__ == "__main__":
     image_folder = cfg.get("image_folder")
     output_file = cfg.get("output_file")
 
-    cprint(f"Run yolo benchmark: {model}, {n_images} images", "green")
+    cprint(f"Run yolo benchmark: {model} {target_name}_{target_variant}, {n_images} images", "green")
 
 
-    avg_inference_time = main(model_name, model_variant, target, n_images, image_folder)
+    avg_inference_time = main(model, target_name, target_variant, n_images, image_folder)
 
-    write_results([platform.node(), "no accelerator", model, target, avg_inference_time, 1], output_file)
+    write_results([platform.node(), "no accelerator", model, f"{target_name}_{target_variant}", avg_inference_time, 1], output_file)
     gc.collect()
 
