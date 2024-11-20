@@ -11,7 +11,9 @@ def dashboard_layout(inference_df):
     accelerators = inference_df['accelerator'].unique()
 
     models = inference_df['model'].unique()
+
     frameworks = inference_df['framework'].unique()
+    frameworks = sorted(frameworks)
     batch_sizes = inference_df['batch_size'].unique()
 
     layout = dbc.Container(
@@ -73,7 +75,7 @@ def dashboard_layout(inference_df):
                         dbc.Checklist(
                             id='framework-checklist',
                             options=[{'label': html.Div(fw, style={"marginLeft": "10px"}), 'value': fw} for fw in frameworks],
-                            value=list(frameworks),
+                            value=frameworks,
                             inline=False,
                             persistence=True,
                             labelStyle={"display": "flex", "align-items": "center"},

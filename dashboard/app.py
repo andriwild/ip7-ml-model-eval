@@ -9,7 +9,6 @@ from pages.dashboard import dashboard_layout
 from pages.hardware import hardware_layout
 from pages.research import research_layout
 from pages.ml import ml_layout
-from pages.management import management_layout
 
 # Load data
 file_folder = 'data/'
@@ -72,7 +71,6 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Hardware", href="/hardware", id='hardware-link')),
         dbc.NavItem(dbc.NavLink("ML", href="/ml", id='ml-link')),
         dbc.NavItem(dbc.NavLink("Research", href="/research", id='research-link')),
-        dbc.NavItem(dbc.NavLink("Management", href="/management", id='management-link')),
     ]
 )
 
@@ -93,12 +91,11 @@ app.layout = html.Div([
         Output('hardware-link', 'active'),
         Output('ml-link', 'active'),
         Output('research-link', 'active'),
-        Output('management-link', 'active'),
         Input('url', 'pathname')
         )
 
 def display_page(pathname):
-    n_pages = 6
+    n_pages = 5
     active = [False] * n_pages
 
     match(pathname):
@@ -117,9 +114,6 @@ def display_page(pathname):
         case '/research':
             active[4] = True
             return research_layout(), *active
-        case '/management':
-            active[5] = True
-            return management_layout(), *active
 
 
 
