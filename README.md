@@ -18,6 +18,17 @@ Import error: `libGL.so.1` library:
 apt-get install -y libgl1-mesa-dev
 ```
 
+### Compile to Hailo
+```bash
+hailomz compile /
+    --hw-arch hailo8l /
+    --yaml ./hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov5n_flower.yaml /
+    --ckpt /local/shared_with_docker/flower_n.onnx /
+    --classes 3 /
+    --end-node-names /model.24/m.0/Conv /model.24/m.1/Conv /model.24/m.2/Conv /
+    --calib-path /local/shared_with_docker/flowers/
+```
+
 ## Coral USB
 
 Ensure that the connected hohttps://github.com/pytorch/pytorch/issues/139052st device, such as a Raspberry Pi, is equipped with a reliable and high-capacity power supply.
