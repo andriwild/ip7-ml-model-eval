@@ -20,14 +20,39 @@ apt-get install -y libgl1-mesa-dev
 
 ### Compile to Hailo
 ```bash
-hailomz compile /
-    --hw-arch hailo8l /
-    --yaml ./hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov5n_flower.yaml /
-    --ckpt /local/shared_with_docker/flower_n.onnx /
-    --classes 3 /
-    --end-node-names /model.24/m.0/Conv /model.24/m.1/Conv /model.24/m.2/Conv /
+hailomz compile \
+    --hw-arch hailo8l \
+    --yaml ./hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov5n_flower.yaml \
+    --ckpt /local/shared_with_docker/flower_n.onnx \
+    --classes 3 \
+    --end-node-names /model.24/m.0/Conv /model.24/m.1/Conv /model.24/m.2/Conv \
     --calib-path /local/shared_with_docker/flowers/
+
+hailomz compile \
+    --hw-arch hailo8l \
+    --yaml ./hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov8n.yaml \
+    --ckpt /local/shared_with_docker/yolov8n_flower_v1.onnx \
+    --classes 3 \
+    --end-node-names /model.22/cv2.0/cv2.0.2/Conv /model.22/cv3.0/cv3.0.2/Conv /model.22/cv2.1/cv2.1.2/Conv /model.22/cv3.1/cv3.1.2/Conv /model.22/cv2.2/cv2.2.2/Conv /model.22/cv3.2/cv3.2.2/Conv \
+    --calib-path /local/shared_with_docker/flowers/
+
+
+hailomz compile \
+    --hw-arch hailo8l \
+    --yaml ./hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov8n.yaml \
+    --ckpt /local/shared_with_docker/yolov8n_pollinator_ep50_v1.onnx \
+    --classes 5 \
+    --end-node-names /model.22/cv2.0/cv2.0.2/Conv /model.22/cv3.0/cv3.0.2/Conv /model.22/cv2.1/cv2.1.2/Conv /model.22/cv3.1/cv3.1.2/Conv /model.22/cv2.2/cv2.2.2/Conv /model.22/cv3.2/cv3.2.2/Conv \
+    --calib-path /local/shared_with_docker/pollinators/
+
 ```
+Output Layer 8n:
+Conv 39
+Conv 42
+Conv 50
+Conv 53
+Conv 60
+Conv 63
 
 ## Coral USB
 
@@ -46,3 +71,17 @@ https://github.com/google-coral/tflite/blob/master/python/examples/detection/det
 Error in cpuinfo: prctl(PR_SVE_GET_VL) 
 https://github.com/pytorch/pytorch/issues/139052
 
+
+# Google Colab
+
+Prevent from disconnecting:
+```js
+function ClickConnect() {
+  console.log('Working')
+  document
+    .querySelector('#top-toolbar > colab-connect-button')
+    .shadowRoot.querySelector('#connect')
+    .click()
+}
+intervalTiming = setInterval(ClickConnect, 60000)
+```

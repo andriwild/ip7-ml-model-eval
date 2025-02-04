@@ -2,11 +2,14 @@ from dash import dcc, html
 import dash_bootstrap_components as dbc
 import plotly.express as px
 
-def hardware_layout(devices_df, camera_df):
+def hardware_layout(devices_df, camera_df, filtered_df):
 
     device_colors = px.colors.qualitative.Pastel
     devices_df = devices_df.sort_values('cost')
     camera_df = camera_df.sort_values('cost')
+
+    print(filtered_df)
+
 
     layout = dbc.Container(
             style={"marginTop": "20px"},
@@ -108,7 +111,30 @@ def hardware_layout(devices_df, camera_df):
                             )
                         ])
                     ], className="mb-5"),
+
+                dbc.Row([
+                    dcc.Graph(
+                        id='model-time-bar-chart2',
+                        figure=px.scatter(
+                            filtered_df,
+                            x='time',
+                            y='total_cost',
+                            title='Raspberry Pi 5 - Mitwelten ML Pipeline',
+                            color='device_framework',
+                            labels={
+                                'pipeline': 'Time (sec)',
+                                'n_flowers': 'Number of Flowers'
+                                },
+                            color_discrete_sequence=device_colors
+                            ).update_layout( 
+                                            template='ggplot2',
+                                            yaxis_range=[50, 220])
+                            .update_traces(marker_size=10)
+                            )
+                    ])
+
                 ]
+
             )
 
     return layout

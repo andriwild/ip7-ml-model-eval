@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 
 
-def ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df):
+def ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df, mw_pipeline_df):
     device_colors = px.colors.qualitative.Pastel
     mw_pytorch_df = mw_pytorch_df.sort_values(by=["threads", "batch_size"])
     mw_pytorch_df['thread_batchsize'] = mw_pytorch_df.apply(lambda row: f"threads: {int(row['threads'])}, batch size: {int(row['batch_size'])}", axis=1)
@@ -93,6 +93,27 @@ def ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df):
                             color_discrete_sequence=device_colors
                             ).update_layout(
                                 template='ggplot2').add_vline(x=15, line_width=2, line_dash="dash", line_color="red")
+                            )
+                    ]),
+                dbc.Row([
+                    dcc.Graph(
+                        id='model-time-bar-chart2',
+                        figure=px.scatter(
+                            mw_pipeline_df,
+                            x='pipeline',
+                            y='n_flowers',
+                            title='Raspberry Pi 5 - Mitwelten ML Pipeline',
+                            color='model',
+                            labels={
+                                'pipeline': 'Time (sec)',
+                                'n_flowers': 'Number of Flowers'
+                                },
+                            color_discrete_sequence=device_colors
+                            ).update_layout( 
+                                            template='ggplot2',
+                                            xaxis_range=[0, 16]
+                                            )
+                            .add_vline(x=15, line_width=2, line_dash="dash", line_color="red")
                             )
                     ])
                 ]

@@ -20,6 +20,7 @@ map_df = pd.read_csv( file_folder + 'map.csv')
 frameworks_df = pd.read_csv(file_folder + 'frameworks.csv')
 mw_pytorch_df = pd.read_csv( file_folder + 'mw/pytorch/rpi5_mw_pytorch.csv')
 mw_tflite_df = pd.read_csv( file_folder + 'mw/tflite/rpi5_mw_tflite.csv')
+mw_pipeline_df = pd.read_csv( file_folder + 'mw/mw_comparison/mw_inference_comp.csv')
 
 batch_sizes = inference_df['batch_size'].unique()
 
@@ -107,10 +108,10 @@ def display_page(pathname):
             return analysis_layout(filtered_df), *active
         case '/hardware':
             active[2] = True
-            return hardware_layout(devices_df, camera_df), *active
+            return hardware_layout(devices_df, camera_df, filtered_df), *active
         case '/ml':
             active[3] = True
-            return ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df), *active
+            return ml_layout(mw_pytorch_df, mw_tflite_df, frameworks_df, mw_pipeline_df), *active
         case '/research':
             active[4] = True
             return research_layout(), *active
