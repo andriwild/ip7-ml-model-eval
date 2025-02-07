@@ -1,0 +1,14 @@
+type,device,name,cost,link
+device,rpi4,Raspberry Pi 4 8GB,84.90,https://www.pi-shop.ch/raspberry-pi-4-model-b-8gb
+device,rpi5,Raspberry Pi 5 8GB,86.45,https://www.pi-shop.ch/raspberry-pi-5-8-gb
+accelerator,hailo8l,Hailo8l (13 TOPS),79.90,https://www.pi-shop.ch/raspberry-pi-ai-hat-13t
+accelerator,hailo8,Hailo8 (26 TOPS),122.90,https://www.pi-shop.ch/raspberry-pi-ai-hat-26t
+accelerator,usb_edgetpu,Coral USB Accelerator (4 TOPS),89.90,https://www.pi-shop.ch/coral-usb-accelerator
+accelerator,pci_edgetpu,M.2 PCI Accelerator (4 TOPS),47.90,https://www.berrybase.ch/pineboards-hat-ai-coral-edge-tpu-erweiterung-fuer-raspberry-pi-5-bundle
+accelerator,pci_dual_edgetpu,M.2 PCI Dual Accelerator (8 TOPS),96.90,https://www.berrybase.ch/pineboards-hat-ai-dual-edge-coral-tpu-fuer-raspberry-pi-5-bundle
+accelerator,rpi_ai_cam,Raspberry AI-Camera,77.90,https://www.berrybase.ch/raspberry-pi-ai-camera
+device,beagley-ai, BeagleY AI (4 TOPS), 70, https://www.seeedstudio.com/BeagleYr-AI-beagleboard-orgr-4-TOPS-AI-Acceleration-powered-by-TI-AM67A.html?srsltid=AfmBOoqbS7QobY1bpIr0GnRPOelpqEBvTu-ORTYmben9tpZC-IdLkpc5
+device,orange_pi_5_max, Orange Pi 5 Max, 179, https://www.fruugoschweiz.com/fur-5-max-8gb-ram-lpddr5-rk3588-entwicklungsboard-m2-pcie-25g-lan-wifibt-fur-orangepi-5-max-single-board/p-318015259-707050613?language=de&ac=ProductCasterAPI&asc=pmax&gad_source=1&gclid=CjwKCAiAudG5BhAREiwAWMlSjLEMbM-yUbZk_3QtAjOk1nHmq_j0rG6wlFLS01Efpj7LyyUGa0kiMBoC074QAvD_BwE
+device,jetson_nano, Jetson Nano, 214,https://www.digitec.ch/de/s1/product/nvidia-jetson-nano-4gb-development-kit-entwicklungsboard-kit-24227789
+device,asus_tinker_edge_t, Asus Tinker Edge T, 157.10, https://www.digitec.ch/de/s1/product/asus-tinker-board-t-entwicklungsboard-kit-17698721?supplier=7388859&utm_source=google&utm_medium=cpc&utm_campaign=PROD_CH_PMAX_M4_C2&campaignid=21028152894&adgroupid=&adid=&dgCidg=CjwKCAiAudG5BhAREiwAWMlSjMQ4F2WpeC_b2WmghBEjLvWClmFKAXNbyKigcwAnM81rVn4_UIbO6BoCIj8QAvD_BwE&gad_source=1&gclid=CjwKCAiAudG5BhAREiwAWMlSjMQ4F2WpeC_b2WmghBEjLvWClmFKAXNbyKigcwAnM81rVn4_UIbO6BoCIj8QAvD_BwE&gclsrc=aw.ds
+device,rdx_x3,RDX X3,55,https://www.waveshare.com/rdk-x3.htm

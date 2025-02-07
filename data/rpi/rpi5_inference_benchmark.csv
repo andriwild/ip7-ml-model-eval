@@ -1,0 +1,111 @@
+device,model,framework,time, batch_size
+rpi5,yolov8n,tflite,368.4960603713989,1
+rpi5,yolov8s,tflite,1014.7346496582031,1
+rpi5,yolov8m,tflite,3334.049081802368,1
+rpi5,yolov8n,onnx,237.31579780578613,1
+rpi5,yolov8s,onnx,613.8572692871094,1
+rpi5,yolov8m,onnx,1477.4457454681396,1
+rpi5,yolov8n,ncnn,115.65039157867432,1
+rpi5,yolov8s,ncnn,253.1482219696045,1
+rpi5,yolov8m,ncnn,540.9271717071533,1
+rpi5,yolov8n,pt,339.2745018005371,1
+rpi5,yolov8s,pt,749.5128393173218,1
+rpi5,yolov8m,pt,1569.4798231124878,1
+rpi5,yolov5nu,tflite,421.6244697570801,1
+rpi5,yolov5su,tflite,1183.4511280059814,1
+rpi5,yolov5mu,tflite,2964.3311500549316,1
+rpi5,yolov5nu,onnx,215.17717838287354,1
+rpi5,yolov5su,onnx,536.6042852401733,1
+rpi5,yolov5mu,onnx,1242.0526266098022,1
+rpi5,yolov5nu,ncnn,116.27342700958252,1
+rpi5,yolov5su,ncnn,232.52811431884766,1
+rpi5,yolov5mu,ncnn,468.46930980682373,1
+rpi5,yolov5nu,pt,344.2741632461548,1
+rpi5,yolov5su,pt,719.5648670196533,1
+rpi5,yolov5mu,pt,1448.41468334198,1
+rpi5,yolov8s,rpi5 + Coral USB Edge TPU,1033.6162567138672,1
+rpi5,yolov10b,rpi5 + Coral USB Edge TPU,4026.9640922546387,1
+rpi5,yolov10n,rpi5 + Coral USB Edge TPU,425.94428062438965,1
+rpi5,yolov10s,rpi5 + Coral USB Edge TPU,1150.581431388855,1
+rpi5,yolov10x,rpi5 + Coral USB Edge TPU,7084.2204332351685,1
+rpi5,yolov10b_edgetpu,rpi5 M.2 PCI Edge TPU,1249.7046732999934,1
+rpi5,yolov10n_edgetpu,rpi5 M.2 PCI Edge TPU,170.24766889999228,1
+rpi5,yolov10s_edgetpu,rpi5 M.2 PCI Edge TPU,412.57444539998005,1
+rpi5,yolov10x_edgetpu,rpi5 M.2 PCI Edge TPU,2264.899033300003,1
+rpi5,yolov5mu_edgetpu,rpi5 M.2 PCI Edge TPU,227.25834650000252,1
+rpi5,yolov5su_edgetpu,rpi5 M.2 PCI Edge TPU,91.44104219998326,1
+rpi5,yolov8l_edgetpu,rpi5 M.2 PCI Edge TPU,1329.607389900002,1
+rpi5,yolov8m_edgetpu,rpi5 M.2 PCI Edge TPU,367.2706365000181,1
+rpi5,yolov8n_edgetpu,rpi5 M.2 PCI Edge TPU,47.45028229997388,1
+rpi5,yolov8s_edgetpu,rpi5 M.2 PCI Edge TPU,438.53423169999814,1
+rpi5,yolov8x_edgetpu,rpi5 M.2 PCI Edge TPU,3110.423912500039,1
+rpi5,yolov5nu_edgetpu,rpi5 M.2 PCI Edge TPU,44.048901600217505,1
+rpi5,yolov5lu_edgetpu,rpi5 M.2 PCI Edge TPU,624.6136834000936,1
+rpi5,yolov10b,rpi5 Hailo8l,57.165446281433105,1
+rpi5,yolov10n,rpi5 Hailo8l,15.978474617004395,1
+rpi5,yolov10s,rpi5 Hailo8l,28.695189952850342,1
+rpi5,yolov10x,rpi5 Hailo8l,101.64119958877563,1
+rpi5,yolov5m,rpi5 Hailo8l,43.532443046569824,1
+rpi5,yolov5s,rpi5 Hailo8l,22.856955528259277,1
+rpi5,yolov8l,rpi5 Hailo8l,84.64262247085571,1
+rpi5,yolov8m,rpi5 Hailo8l,43.90271186828613,1
+rpi5,yolov8n,rpi5 Hailo8l,15.659821033477783,1
+rpi5,yolov8s,rpi5 Hailo8l,24.178225994110107,1
+rpi5,yolov8x,rpi5 Hailo8l,131.42621517181396,1
+rpi5,yolov10b,rpi5 Hailo8,48.57633829116821,1
+rpi5,yolov10n,rpi5 Hailo8,14.293618202209473,1
+rpi5,yolov10s,rpi5 Hailo8,22.65650749206543,1
+rpi5,yolov10x,rpi5 Hailo8,84.3860936164856,1
+rpi5,yolov5m,rpi5 Hailo8,15.776729583740233,1
+rpi5,yolov5s,rpi5 Hailo8,14.93232250213623,1
+rpi5,yolov8l,rpi5 Hailo8,58.549935817718506,1
+rpi5,yolov8m,rpi5 Hailo8,38.0139946937561,1
+rpi5,yolov8n,rpi5 Hailo8,14.212594032287598,1
+rpi5,yolov8s,rpi5 Hailo8,14.612362384796143,1
+rpi5,yolov8x,rpi5 Hailo8,113.12699317932129,1
+rpi5,yolov10b,rpi5 Hailo8,27.500591278076172,10
+rpi5,yolov10n,rpi5 Hailo8,15.060100555419922,10
+rpi5,yolov10s,rpi5 Hailo8,16.589767932891846,10
+rpi5,yolov5m,rpi5 Hailo8,16.11396074295044,10
+rpi5,yolov5s,rpi5 Hailo8,14.625670909881592,10
+rpi5,yolov8l,rpi5 Hailo8,29.930787086486816,10
+rpi5,yolov8m,rpi5 Hailo8,18.92888307571411,10
+rpi5,yolov8n,rpi5 Hailo8,13.612241744995117,10
+rpi5,yolov8s,rpi5 Hailo8,14.584169387817383,10
+rpi5,yolov10x,rpi5 Hailo8,56.99075222015381,10
+rpi5,yolov8x,rpi5 Hailo8,83.13536167144775,10
+rpi5,yolov10b,rpi5 Hailo8l,46.7299222946167,10
+rpi5,yolov10n,rpi5 Hailo8l,19.639415740966797,10
+rpi5,yolov10s,rpi5 Hailo8l,25.758285522460938,10
+rpi5,yolov10x,rpi5 Hailo8l,85.39960384368896,10
+rpi5,yolov5m,rpi5 Hailo8l,34.73294734954834,10
+rpi5,yolov5s,rpi5 Hailo8l,22.54537582397461,10
+rpi5,yolov8l,rpi5 Hailo8l,78.09173583984375,10
+rpi5,yolov8m,rpi5 Hailo8l,36.02424144744873,10
+rpi5,yolov8n,rpi5 Hailo8l,18.84866714477539,10
+rpi5,yolov8s,rpi5 Hailo8l,23.743996620178223,10
+rpi5,yolov8x,rpi5 Hailo8l,125.45481204986572,10
+rpi5,yolov8n (cooled),tflite,368.50810050964355,1
+rpi5,yolov8s (cooled),tflite,1004.6629667282104,1
+rpi5,yolov8m (cooled),tflite,2687.4435424804688,1
+rpi5,yolov8n (cooled),onnx,192.57099628448486,1
+rpi5,yolov8s (cooled),onnx,471.0497856140137,1
+rpi5,yolov8m (cooled),onnx,1130.737543106079,1
+rpi5,yolov8n (cooled),ncnn,103.89344692230225,1
+rpi5,yolov8s (cooled),ncnn,227.36427783966064,1
+rpi5,yolov8m (cooled),ncnn,478.55210304260254,1
+rpi5,yolov8n (cooled),pt,271.2904453277588,1
+rpi5,yolov8s (cooled),pt,576.2351751327515,1
+rpi5,yolov8m (cooled),pt,1186.8739604949951,1
+rpi5,yolov5nu (cooled),tflite,324.9983787536621,1
+rpi5,yolov5su (cooled),tflite,877.1850824356079,1
+rpi5,yolov5mu (cooled),tflite,2100.8846759796143,1
+rpi5,yolov5nu (cooled),onnx,171.66802883148193,1
+rpi5,yolov5su (cooled),onnx,432.08935260772705,1
+rpi5,yolov5mu (cooled),onnx,956.184720993042,1
+rpi5,yolov5nu (cooled),ncnn,100.55813789367676,1
+rpi5,yolov5su (cooled),ncnn,213.07637691497803,1
+rpi5,yolov5mu (cooled),ncnn,402.65464782714844,1
+rpi5,yolov5nu (cooled),pt,267.27287769317627,1
+rpi5,yolov5su (cooled),pt,549.374508857727,1
+rpi5,yolov5mu (cooled),pt,1104.913830757141,1

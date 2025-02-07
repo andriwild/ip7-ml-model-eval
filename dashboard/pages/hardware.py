@@ -122,8 +122,8 @@ def hardware_layout(devices_df, camera_df, filtered_df):
                             title='Raspberry Pi 5 - Mitwelten ML Pipeline',
                             color='device_framework',
                             labels={
-                                'pipeline': 'Time (sec)',
-                                'n_flowers': 'Number of Flowers'
+                                'time': 'Time (ms)',
+                                'total_cost': 'CHF'
                                 },
                             color_discrete_sequence=device_colors
                             ).update_layout( 

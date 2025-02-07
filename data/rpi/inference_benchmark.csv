@@ -1,0 +1,180 @@
+device,accelerator,model,framework,time,batch_size
+rpi5,no accelerator,yolov8n,tflite_f32,368.4960603713989,1
+rpi5,no accelerator,yolov8s,tflite_f32,1014.7346496582031,1
+rpi5,no accelerator,yolov8m,tflite_f32,3334.049081802368,1
+rpi5,no accelerator,yolov8n,onnx,237.31579780578613,1
+rpi5,no accelerator,yolov8s,onnx,613.8572692871094,1
+rpi5,no accelerator,yolov8m,onnx,1477.4457454681396,1
+rpi5,no accelerator,yolov8n,ncnn,115.65039157867432,1
+rpi5,no accelerator,yolov8s,ncnn,253.1482219696045,1
+rpi5,no accelerator,yolov8m,ncnn,540.9271717071533,1
+rpi5,no accelerator,yolov8n,pt,339.2745018005371,1
+rpi5,no accelerator,yolov8s,pt,749.5128393173218,1
+rpi5,no accelerator,yolov8m,pt,1569.4798231124878,1
+rpi5,no accelerator,yolov5n,tflite_f32,421.6244697570801,1
+rpi5,no accelerator,yolov5s,tflite_f32,1183.4511280059814,1
+rpi5,no accelerator,yolov5m,tflite_f32,2964.3311500549316,1
+rpi5,no accelerator,yolov5n,onnx,215.17717838287354,1
+rpi5,no accelerator,yolov5s,onnx,536.6042852401733,1
+rpi5,no accelerator,yolov5m,onnx,1242.0526266098022,1
+rpi5,no accelerator,yolov5n,ncnn,116.27342700958252,1
+rpi5,no accelerator,yolov5s,ncnn,232.52811431884766,1
+rpi5,no accelerator,yolov5m,ncnn,468.46930980682373,1
+rpi5,no accelerator,yolov5n,pt,344.2741632461548,1
+rpi5,no accelerator,yolov5s,pt,719.5648670196533,1
+rpi5,no accelerator,yolov5m,pt,1448.41468334198,1
+rpi5,usb_edgetpu,yolov8s,tflite_edgetpu,1033.6162567138672,1
+rpi5,usb_edgetpu,yolov10b,tflite_edgetpu,4026.9640922546387,1
+rpi5,usb_edgetpu,yolov10n,tflite_edgetpu,425.94428062438965,1
+rpi5,usb_edgetpu,yolov10s,tflite_edgetpu,1150.581431388855,1
+rpi5,usb_edgetpu,yolov10x,tflite_edgetpu,7084.2204332351685,1
+rpi5,pci_edgetpu,yolov10b,tflite_edgetpu,1249.7046732999934,1
+rpi5,pci_edgetpu,yolov10n,tflite_edgetpu,170.24766889999228,1
+rpi5,pci_edgetpu,yolov10s,tflite_edgetpu,412.57444539998005,1
+rpi5,pci_edgetpu,yolov10x,tflite_edgetpu,2264.899033300003,1
+rpi5,pci_edgetpu,yolov5m,tflite_edgetpu,227.25834650000252,1
+rpi5,pci_edgetpu,yolov5s,tflite_edgetpu,91.44104219998326,1
+rpi5,pci_edgetpu,yolov8l,tflite_edgetpu,1329.607389900002,1
+rpi5,pci_edgetpu,yolov8m,tflite_edgetpu,367.2706365000181,1
+rpi5,pci_edgetpu,yolov8n,tflite_edgetpu,47.45028229997388,1
+rpi5,pci_edgetpu,yolov8s,tflite_edgetpu,438.53423169999814,1
+rpi5,pci_edgetpu,yolov8x,tflite_edgetpu,3110.423912500039,1
+rpi5,pci_edgetpu,yolov5n,tflite_edgetpu,44.048901600217505,1
+rpi5,hailo8l,yolov10b,hailo,57.165446281433105,1
+rpi5,hailo8l,yolov10n,hailo,15.978474617004395,1
+rpi5,hailo8l,yolov10s,hailo,28.695189952850342,1
+rpi5,hailo8l,yolov10x,hailo,101.64119958877563,1
+rpi5,hailo8l,yolov5m,hailo,43.532443046569824,1
+rpi5,hailo8l,yolov5s,hailo,22.856955528259277,1
+rpi5,hailo8l,yolov8l,hailo,84.64262247085571,1
+rpi5,hailo8l,yolov8m,hailo,43.90271186828613,1
+rpi5,hailo8l,yolov8n,hailo,15.659821033477783,1
+rpi5,hailo8l,yolov8s,hailo,24.178225994110107,1
+rpi5,hailo8l,yolov8x,hailo,131.42621517181396,1
+rpi5,hailo8,yolov10b,hailo,48.57633829116821,1
+rpi5,hailo8,yolov10n,hailo,14.293618202209473,1
+rpi5,hailo8,yolov10s,hailo,22.65650749206543,1
+rpi5,hailo8,yolov10x,hailo,84.3860936164856,1
+rpi5,hailo8,yolov5m,hailo,15.776729583740233,1
+rpi5,hailo8,yolov5s,hailo,14.93232250213623,1
+rpi5,hailo8,yolov8l,hailo,58.549935817718506,1
+rpi5,hailo8,yolov8m,hailo,38.0139946937561,1
+rpi5,hailo8,yolov8n,hailo,14.212594032287598,1
+rpi5,hailo8,yolov8s,hailo,14.612362384796143,1
+rpi5,hailo8,yolov8x,hailo,113.12699317932129,1
+rpi5,hailo8,yolov10b,hailo,27.500591278076172,10
+rpi5,hailo8,yolov10n,hailo,15.060100555419922,10
+rpi5,hailo8,yolov10s,hailo,16.589767932891846,10
+rpi5,hailo8,yolov5m,hailo,16.11396074295044,10
+rpi5,hailo8,yolov5s,hailo,14.625670909881592,10
+rpi5,hailo8,yolov8l,hailo,29.930787086486816,10
+rpi5,hailo8,yolov8m,hailo,18.92888307571411,10
+rpi5,hailo8,yolov8n,hailo,13.612241744995117,10
+rpi5,hailo8,yolov8s,hailo,14.584169387817383,10
+rpi5,hailo8,yolov10x,hailo,56.99075222015381,10
+rpi5,hailo8,yolov8x,hailo,83.13536167144775,10
+rpi5,hailo8l,yolov10b,hailo,46.7299222946167,10
+rpi5,hailo8l,yolov10n,hailo,19.639415740966797,10
+rpi5,hailo8l,yolov10s,hailo,25.758285522460938,10
+rpi5,hailo8l,yolov10x,hailo,85.39960384368896,10
+rpi5,hailo8l,yolov5m,hailo,34.73294734954834,10
+rpi5,hailo8l,yolov5s,hailo,22.54537582397461,10
+rpi5,hailo8l,yolov8l,hailo,78.09173583984375,10
+rpi5,hailo8l,yolov8m,hailo,36.02424144744873,10
+rpi5,hailo8l,yolov8n,hailo,18.84866714477539,10
+rpi5,hailo8l,yolov8s,hailo,23.743996620178223,10
+rpi5,hailo8l,yolov8x,hailo,125.45481204986572,10
+rpi5,active cooled,yolov8n,onnx,192.57099628448486,1
+rpi5,active cooled,yolov8s,onnx,471.0497856140137,1
+rpi5,active cooled,yolov8m,onnx,1130.737543106079,1
+rpi5,active cooled,yolov8n,ncnn,103.89344692230225,1
+rpi5,active cooled,yolov8s,ncnn,227.36427783966064,1
+rpi5,active cooled,yolov8m,ncnn,478.55210304260254,1
+rpi5,active cooled,yolov8n,pt,271.2904453277588,1
+rpi5,active cooled,yolov8s,pt,576.2351751327515,1
+rpi5,active cooled,yolov8m,pt,1186.8739604949951,1
+rpi5,active cooled,yolov5n,onnx,171.66802883148193,1
+rpi5,active cooled,yolov5s,onnx,432.08935260772705,1
+rpi5,active cooled,yolov5m,onnx,956.184720993042,1
+rpi5,active cooled,yolov5n,ncnn,100.55813789367676,1
+rpi5,active cooled,yolov5s,ncnn,213.07637691497803,1
+rpi5,active cooled,yolov5m,ncnn,402.65464782714844,1
+rpi5,active cooled,yolov5n,pt,267.27287769317627,1
+rpi5,active cooled,yolov5s,pt,549.374508857727,1
+rpi5,active cooled,yolov5m,pt,1104.913830757141,1
+rpi5,active cooled,yolov8n,tflite_f32,356.7044496536255,1
+rpi5,active cooled,yolov8n,tflite_f16,372.484827041626,1
+rpi5,active cooled,yolov8n,tflite_int8,200.7551670074463,1
+rpi5,active cooled,yolov8s,tflite_f32,1052.1403551101685,1
+rpi5,active cooled,yolov8s,tflite_f16,1008.8504791259766,1
+rpi5,active cooled,yolov8s,tflite_int8,467.8370714187622,1
+rpi5,active cooled,yolov8m,tflite_f32,2720.0613260269165,1
+rpi5,active cooled,yolov8m,tflite_f16,2525.709843635559,1
+rpi5,active cooled,yolov8m,tflite_int8,954.3430328369141,1
+rpi5,active cooled,yolov5n,tflite_f32,327.0151138305664,1
+rpi5,active cooled,yolov5n,tflite_f16,330.1377296447754,1
+rpi5,active cooled,yolov5n,tflite_int8,181.3671588897705,1
+rpi5,active cooled,yolov5s,tflite_f32,860.4446887969971,1
+rpi5,active cooled,yolov5s,tflite_f16,859.3275547027588,1
+rpi5,active cooled,yolov5s,tflite_int8,436.14420890808105,1
+rpi5,active cooled,yolov5m,tflite_f32,2259.2737674713135,1
+rpi5,active cooled,yolov5m,tflite_f16,2259.8740577697754,1
+rpi5,active cooled,yolov5m,tflite_int8,878.2434463500977,1
+rpi4,no accelerator,yolov8n,tflite_f32,1136.6995334625244,1
+rpi4,no accelerator,yolov8n,tflite_f16,1141.5955305099487,1
+rpi4,no accelerator,yolov8n,onnx,507.52713680267334,1
+rpi4,no accelerator,yolov8n,ncnn,390.4364585876465,1
+rpi4,no accelerator,yolov8n,pt,1102.697992324829,1
+rpi4,no accelerator,yolov8s,tflite_f32,3512.4996662139893,1
+rpi4,no accelerator,yolov8s,tflite_f16,3516.950583457947,1
+rpi4,no accelerator,yolov8s,onnx,1438.2876634597778,1
+rpi4,no accelerator,yolov8s,ncnn,934.397292137146,1
+rpi4,no accelerator,yolov8s,pt,3222.640800476074,1
+rpi4,no accelerator,yolov8m,tflite_f32,9448.577451705933,1
+rpi4,no accelerator,yolov8m,tflite_f16,9469.90442276001,1
+rpi4,no accelerator,yolov8m,onnx,3443.7111854553223,1
+rpi4,no accelerator,yolov8m,ncnn,2374.3900299072266,1
+rpi4,no accelerator,yolov8m,pt,8337.55373954773,1
+rpi4,no accelerator,yolov5n,tflite_f32,1025.3907442092896,1
+rpi4,no accelerator,yolov5n,tflite_f16,1030.352783203125,1
+rpi4,no accelerator,yolov5n,onnx,455.7997226715088,1
+rpi4,no accelerator,yolov5n,ncnn,370.25229930877686,1
+rpi4,no accelerator,yolov5n,pt,1043.5912609100342,1
+rpi4,no accelerator,yolov5s,tflite_f32,2987.408995628357,1
+rpi4,no accelerator,yolov5s,tflite_f16,2991.0767793655396,1
+rpi4,no accelerator,yolov5s,onnx,1174.6074199676514,1
+rpi4,no accelerator,yolov5s,ncnn,786.6448879241943,1
+rpi4,no accelerator,yolov5s,pt,2791.5359258651733,1
+rpi4,no accelerator,yolov5m,tflite_f32,7758.251404762268,1
+rpi4,no accelerator,yolov5m,tflite_f16,7963.456320762634,1
+rpi4,no accelerator,yolov5m,onnx,2999.568271636963,1
+rpi4,no accelerator,yolov5m,ncnn,2038.1487131118774,1
+rpi4,no accelerator,yolov5m,pt,7123.500967025757,1
+rpi4,no accelerator,yolov10n,tflite_f32,989.4571304321289,1
+rpi4,no accelerator,yolov10n,tflite_f16,987.7830028533936,1
+rpi4,no accelerator,yolov10n,onnx,488.06440830230713,1
+rpi4,no accelerator,yolov10n,pt,1297.3208904266357,1
+rpi4,no accelerator,yolov10s,tflite_f32,2797.1080780029297,1
+rpi4,no accelerator,yolov10s,tflite_f16,2799.087715148926,1
+rpi4,no accelerator,yolov10s,onnx,1237.6098155975342,1
+rpi4,no accelerator,yolov10s,pt,3263.303065299988,1
+rpi4,no accelerator,yolov10m,tflite_f32,7226.095819473267,1
+rpi4,no accelerator,yolov10m,tflite_f16,7223.040223121643,1
+rpi4,no accelerator,yolov10m,onnx,2918.4434175491333,1
+rpi4,no accelerator,yolov10m,pt,7476.829719543457,1
+rpi5,active cooled,yolov10n,tflite_f32,332.05268383026123,1
+rpi5,active cooled,yolov10n,tflite_f16,331.5260171890259,1
+rpi5,active cooled,yolov10n,tflite_int8,222.43540287017822,1
+rpi5,active cooled,yolov10n,onnx,217.81182289123535,1
+rpi5,active cooled,yolov10n,pt,462.244176864624,1
+rpi5,active cooled,yolov10s,tflite_f32,888.8984203338623,1
+rpi5,active cooled,yolov10s,tflite_f16,885.0600957870483,1
+rpi5,active cooled,yolov10s,tflite_int8,486.58580780029297,1
+rpi5,active cooled,yolov10s,onnx,483.41197967529297,1
+rpi5,active cooled,yolov10s,pt,1062.4656200408936,1
+rpi5,active cooled,yolov10m,tflite_f32,2196.0747480392456,1
+rpi5,active cooled,yolov10m,tflite_f16,2094.8623657226562,1
+rpi5,active cooled,yolov10m,tflite_int8,987.9118919372559,1
+rpi5,active cooled,yolov10m,onnx,1041.110110282898,1
+rpi5,active cooled,yolov10m,pt,2298.1350898742676,1
+rpi5,rpi_ai_cam,yolov8n,res_net, 33, 1

@@ -13,7 +13,6 @@ inference/hailo/__pycache__/
 hailort.*
 output_images/
 measurement*/
-data/
 coco/val2017/
 coco/annotations/
 !models/

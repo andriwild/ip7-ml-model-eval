@@ -1,0 +1,6 @@
+name,description,link
+PyTorch,slow; usage ok but complex (a lot options); good documentation; good community,https://pytorch.org/
+ONNX,fast on CPU (3x); usage ok; good documentation,https://onnx.ai/onnx/api/
+Ultralytics, easy to use; high level of abstraction; good documentation; large community,https://ultralytics.com/
+TensorFlow(lite), usage ok; lite modelle fast with int types; good documentation,https://www.tensorflow.org/
+Hailo, usage ok; model needs to be converted to special format (.hef); convertion not trivial,https://hailo.ai/de/

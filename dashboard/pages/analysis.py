@@ -1,10 +1,31 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import pandas as pd
+import plotly.graph_objects as go
 
 
+categories = ["Preis", "Aufwand Gehäuse", "Dokumentaion", "Speed", "Energieverbrauch", "Flexibilität"]
+def create_spider_chart(df, setup_name):
+    setup_data = df[df["Setup"] == setup_name].iloc[0, 1:].tolist()
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+        r=setup_data + [setup_data[0]],
+        theta=categories + [categories[0]],
+        fill='toself',
+        name=setup_name
+    ))
+    
+    fig.update_layout(
+        polar=dict(radialaxis=dict(visible=False)),
+        showlegend=False,
+        title=setup_name
+    )
+    return fig
 
-def analysis_layout(filtered_df):
+
+def analysis_layout(filtered_df, spider_df):
 
     device_colors = px.colors.qualitative.Pastel
 
@@ -125,5 +146,15 @@ def analysis_layout(filtered_df):
                     )
                 ])
             ]),
+        dbc.Row([
+        dbc.Row([
+            dbc.Col(html.H3("Config Properties"), className="mb-2")
+        ]),
+        dbc.Row([
+            dbc.Col(dcc.Graph(figure=create_spider_chart(spider_df, "Hailo")), width=4),
+            dbc.Col(dcc.Graph(figure=create_spider_chart(spider_df, "AI-Kamera")), width=4),
+            dbc.Col(dcc.Graph(figure=create_spider_chart(spider_df, "NCNN")), width=4),
+        ]),
+        ]),
     ])
     return layout

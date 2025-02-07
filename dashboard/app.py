@@ -21,6 +21,7 @@ frameworks_df = pd.read_csv(file_folder + 'frameworks.csv')
 mw_pytorch_df = pd.read_csv( file_folder + 'mw/pytorch/rpi5_mw_pytorch.csv')
 mw_tflite_df = pd.read_csv( file_folder + 'mw/tflite/rpi5_mw_tflite.csv')
 mw_pipeline_df = pd.read_csv( file_folder + 'mw/mw_comparison/mw_inference_comp.csv')
+spider_df = pd.read_csv( file_folder + 'spider_chart_data.csv')
 
 batch_sizes = inference_df['batch_size'].unique()
 
@@ -105,7 +106,7 @@ def display_page(pathname):
             return dashboard_layout(inference_df), *active
         case '/analysis':
             active[1] = True
-            return analysis_layout(filtered_df), *active
+            return analysis_layout(filtered_df, spider_df), *active
         case '/hardware':
             active[2] = True
             return hardware_layout(devices_df, camera_df, filtered_df), *active
